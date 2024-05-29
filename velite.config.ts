@@ -1,7 +1,9 @@
 import { defineConfig, defineCollection, s } from "velite";
-// import rehypeSlug from "rehype-slug";
-// import rehypePrettyCode from "rehype-pretty-code";
-// import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { remarkImgToJsx } from "@/lib/plugins/remark-img-to-jsx";
+import rehypeSlug from "rehype-slug";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePresetMinify from "rehype-preset-minify";
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
   ...data,
@@ -35,7 +37,24 @@ export default defineConfig({
   },
   collections: { posts },
   mdx: {
-    rehypePlugins: [],
-    remarkPlugins: [],
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypePrettyCode,
+        { theme: "dark-plus", defaultLang: "plaintext", ignoreMissing: true },
+      ],
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "wrap",
+          properties: {
+            className: ["subheading-anchor"],
+            ariaLabel: "Link to section",
+          },
+        },
+      ],
+      rehypePresetMinify,
+    ],
+    remarkPlugins: [remarkImgToJsx],
   },
 });

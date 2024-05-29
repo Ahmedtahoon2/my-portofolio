@@ -1,10 +1,25 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client";
 import PostItem from "@/components/PostItem";
-import { sortPosts } from "@/lib/sortPosts";
 import { posts } from "@site/content";
+import { blogConfig } from "@/config/blog";
+import { useBlogPagination } from "@/hooks/useBlogPagination";
+import QueryPagination from "@/components/QueryPagination";
 
-export default async function page() {
-  const sortedPosts = sortPosts(posts.filter((post) => post.published));
-  const displayPosts = sortedPosts;
+interface BlogPageProps {
+  searchParams: {
+    page?: string;
+  };
+}
+
+export default async function page({ searchParams }: BlogPageProps) {
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const { totalPages, displayPosts } = useBlogPagination(
+    posts,
+    blogConfig.POSTS_PER_PAGE,
+    currentPage
+  );
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
@@ -36,6 +51,7 @@ export default async function page() {
           ) : (
             <p>Nothing to see here yet</p>
           )}
+          <QueryPagination className="mt-3" totalPages={totalPages} />
         </div>
       </div>
     </div>

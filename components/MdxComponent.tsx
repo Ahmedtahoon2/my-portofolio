@@ -1,9 +1,6 @@
-import Image from "next/image";
 import { useMDXComponent } from "@/hooks/mdx";
+import { components } from "./mdx/components";
 
-const components = {
-  Image,
-};
 
 interface MdxProps {
   code: string;

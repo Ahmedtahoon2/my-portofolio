@@ -1,10 +1,16 @@
 {
   "cSpell.words": [
+    "boder",
     "esnext",
+    "isodate",
     "lucide",
     "nextjs",
+    "rehype",
     "tailwindcss",
+    "unist",
     "velite",
-    "Velite"
-  ]
+    "Velite",
+    "vfile"
+  ],
+  "css.lint.unknownAtRules": "ignore"
 }

@@ -18,20 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang='en'
-      suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning={true} className="scroll-smooth">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.variable
-        )}>
+        )}
+      >
         <Providers>
-          <div className='relative flex min-h-dvh flex-col bg-background'>
+          <div className="relative flex min-h-dvh flex-col bg-background">
             <Header />
-            <main className="flex-1">
-              {children}
-            </main>
+            <main className="flex-1">{children}</main>
           </div>
         </Providers>
       </body>
