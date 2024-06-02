@@ -1,8 +1,5 @@
-export function formatDate(input: string | number): string {
-  const date = new Date(input);
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+import { options } from "@/config/date";
+
+export function formatDate(date: string | number): string {
+  return new Date(date).toLocaleDateString("en-US", options);
 }

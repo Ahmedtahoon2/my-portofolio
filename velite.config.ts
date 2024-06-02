@@ -1,15 +1,18 @@
 import { defineConfig, defineCollection, s } from "velite";
 import { remarkImgToJsx } from "@/lib/plugins/remark-img-to-jsx";
-import rehypeSlug from "rehype-slug";
-import rehypePrettyCode from "rehype-pretty-code";
+import { toc } from "@/lib/plugins/rehype-toc-plugin";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypePresetMinify from "rehype-preset-minify";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
   ...data,
   slugAsParams: data.slug.split("/").slice(1).join("/"),
 });
 
+// Define the posts collection schema and pattern
 const posts = defineCollection({
   name: "Post",
   pattern: "blog/**/*.mdx",
@@ -26,6 +29,7 @@ const posts = defineCollection({
     .transform(computedFields),
 });
 
+// Export the configuration
 export default defineConfig({
   root: "content",
   output: {
@@ -41,7 +45,7 @@ export default defineConfig({
       rehypeSlug,
       [
         rehypePrettyCode,
-        { theme: "dark-plus", defaultLang: "plaintext", ignoreMissing: true },
+        { theme: "dark-plus", defaultLang: "plaintext"},
       ],
       [
         rehypeAutolinkHeadings,
@@ -54,7 +58,8 @@ export default defineConfig({
         },
       ],
       rehypePresetMinify,
+      toc
     ],
-    remarkPlugins: [remarkImgToJsx],
+    remarkPlugins: [remarkImgToJsx, remarkGfm],
   },
 });

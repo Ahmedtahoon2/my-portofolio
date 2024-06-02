@@ -76,11 +76,47 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            a: {
+              color: theme("colors.primary.500"),
+              "&:hover": {
+                color: `${theme("colors.primary.600")}`,
+              },
+              code: { color: theme("colors.primary.400") },
+            },
+            "h1, h2": {
+              fontWeight: "700",
+              letterSpacing: theme("letterSpacing.tight"),
+              fontSize: "2rem",
+            },
+            h3: {
+              fontWeight: "600",
+            },
+          },
+        },
+        invert: {
+          css: {
+            a: {
+              color: theme("colors.primary.500"),
+              "&:hover": {
+                color: `${theme("colors.primary.400")}`,
+              },
+              code: { color: theme("colors.primary.400") },
+            },
+            "h1, h2, h3, h4, h5, h6": {
+              color: theme("colors.gray.100"),
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
-    require("@tailwindcss/typography")
+    require("tailwind-scrollbar"),
   ],
 } satisfies Config;
 

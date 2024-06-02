@@ -7,3 +7,14 @@ end_of_line = lf
 indent_size = 2
 indent_style = space
 trim_trailing_whitespace = true
+
+[{*.js,*.json}]
+insert_final_newline = true
+
+[*.js]
+block_comment_start = /**
+block_comment = *
+block_comment_end = */
+
+[*.md]
+trim_trailing_whitespace = false
