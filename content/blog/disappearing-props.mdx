@@ -58,7 +58,7 @@ In a surprising twist, our developer suspects Redux, the state manager, might be
 import { useSelector } from "react-redux";
 
 const MysteryComponent = () => {
-  const clue = useSelector((state) => state.mystery.clue);
+  const clue = useSelector(state => state.mystery.clue);
   return <div>{clue ? `Clue: ${clue}` : "No clue found."}</div>;
 };
 ```

@@ -1,6 +1,6 @@
 import { defineConfig, defineCollection, s } from "velite";
-import { remarkImgToJsx } from "@/lib/plugins/remark-img-to-jsx";
-import { toc } from "@/lib/plugins/rehype-toc-plugin";
+import { remarkImgToJsx } from "@/plugins/remark-img-to-jsx";
+import { rehypeTocPlugin } from "@/plugins/rehype-toc-plugin";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypePresetMinify from "rehype-preset-minify";
@@ -43,10 +43,7 @@ export default defineConfig({
   mdx: {
     rehypePlugins: [
       rehypeSlug,
-      [
-        rehypePrettyCode,
-        { theme: "dark-plus", defaultLang: "plaintext"},
-      ],
+      [rehypePrettyCode, { theme: "dark-plus", defaultLang: "plaintext" }],
       [
         rehypeAutolinkHeadings,
         {
@@ -58,7 +55,7 @@ export default defineConfig({
         },
       ],
       rehypePresetMinify,
-      toc
+      rehypeTocPlugin,
     ],
     remarkPlugins: [remarkImgToJsx, remarkGfm],
   },

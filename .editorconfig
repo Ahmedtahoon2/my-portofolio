@@ -1,4 +1,6 @@
 # editorconfig.org
+
+# Top-most EditorConfig file
 root = true
 
 [*]
@@ -8,13 +10,24 @@ indent_size = 2
 indent_style = space
 trim_trailing_whitespace = true
 
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,jsx,ts,tsx,json,html,css,scss,md}]
+charset = utf-8
+
 [{*.js,*.json}]
 insert_final_newline = true
 
-[*.js]
-block_comment_start = /**
-block_comment = *
-block_comment_end = */
+# Specific configuration for JSON files
+[*.json]
+indent_style = space
+indent_size = 2
 
+# Specific configuration for Markdown files
 [*.md]
+trim_trailing_whitespace = false
+
+# Ignore certain directories
+[build/**, dist/**, node_modules/**, .next/**]
+insert_final_newline = false
 trim_trailing_whitespace = false
