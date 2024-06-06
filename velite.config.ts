@@ -49,7 +49,21 @@ export default defineConfig({
   mdx: {
     rehypePlugins: [
       rehypeSlug,
-      [rehypePrettyCode, { theme: "dark-plus", defaultLang: "plaintext" }],
+      [
+        rehypePrettyCode,
+        {
+          theme: "dark-plus",
+          tokensMap: {
+            var: "variable.other",
+            fn: "entity.name.function", // green
+            cls: "entity.name.class", // blue
+            str: "string", // amber
+            num: "constant.numeric", // purple
+            key: "keyword", // red
+            prm: "variable.parameter", // orange
+          },
+        },
+      ],
       [
         rehypeAutolinkHeadings,
         {
