@@ -78,6 +78,9 @@ export default async function PostPage({ params }: PostPageProps) {
             {post.description}
           </p>
         ) : null}
+        <p className="mt-0 text-xl text-muted-foreground">
+          Reading time: {post.readingTime.text}
+        </p>
         <hr className="my-4" />
         <MDXContent code={post.body} />
       </article>

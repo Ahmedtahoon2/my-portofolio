@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import PostItem from "@/components/PostItem";
 import { posts } from "@site/content";
@@ -12,7 +11,7 @@ interface BlogPageProps {
   };
 }
 
-export default async function page({ searchParams }: BlogPageProps) {
+export default function Page({ searchParams }: BlogPageProps) {
   const currentPage = Number(searchParams?.page) || 1;
 
   const { totalPages, displayPosts } = useBlogPagination(

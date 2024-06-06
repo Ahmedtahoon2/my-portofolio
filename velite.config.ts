@@ -1,16 +1,22 @@
 import { defineConfig, defineCollection, s } from "velite";
 import { remarkImgToJsx } from "@/plugins/remark-img-to-jsx";
 import { rehypeTocPlugin } from "@/plugins/rehype-toc-plugin";
+import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypePresetMinify from "rehype-preset-minify";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
-const computedFields = <T extends { slug: string }>(data: T) => ({
-  ...data,
-  slugAsParams: data.slug.split("/").slice(1).join("/"),
-});
+const computedFields = <T extends { slug: string; body: string }>(data: T) => {
+  const readingTimeResult = calcReadingTime(data.body);
+
+  return {
+    ...data,
+    slugAsParams: data.slug.split("/").slice(1).join("/"),
+    readingTime: readingTimeResult, // Add reading time to computed fields
+  };
+};
 
 // Define the posts collection schema and pattern
 const posts = defineCollection({
