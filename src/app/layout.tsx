@@ -32,7 +32,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning={true}
-      className="scroll-pt-[4rem] overflow-y-scroll scroll-smooth scrollbar-none"
+      className="scroll-pt-[4rem] scroll-smooth scrollbar-none"
     >
       <body
         className={cn(

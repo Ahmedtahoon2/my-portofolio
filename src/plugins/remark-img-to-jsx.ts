@@ -1,14 +1,64 @@
 import { Parent, Node, Literal } from "unist";
 import { visit } from "unist-util-visit";
 import { sync as sizeOf } from "probe-image-size";
+import { readFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { getImageMetadata } from "velite";
 import fs from "fs";
 import path from "path";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export type ImageNode = Parent & {
   url: string;
   alt: string;
   name: string;
   attributes: (Literal & { name: string })[];
+};
+
+interface BlurResult {
+  width: number;
+  height: number;
+  placeholder?: "blur" | "empty";
+  blurDataURL?: string;
+}
+
+export const getBlurData = async (
+  imageSrc?: string,
+  defaultWidth: number = 0,
+  defaultHeight: number = 0
+): Promise<BlurResult | null> => {
+  if (!imageSrc) return null;
+  const isExternal = imageSrc.startsWith("http");
+
+  try {
+    let imgBuffer: Buffer | undefined = undefined;
+    if (!isExternal) {
+      const filePath = resolve(__dirname, `../public/${imageSrc}`);
+      imgBuffer = await readFile(filePath);
+    } else {
+      const imageRes = await fetch(imageSrc);
+      const arrayBuffer = await imageRes.arrayBuffer();
+      imgBuffer = Buffer.from(arrayBuffer);
+    }
+
+    const meta = await getImageMetadata(imgBuffer);
+    return {
+      width:
+        defaultWidth > 0
+          ? Math.min(defaultWidth, meta?.width || defaultWidth)
+          : meta?.width || defaultWidth,
+      height:
+        defaultHeight > 0
+          ? Math.min(defaultHeight, meta?.height || defaultHeight)
+          : meta?.height || defaultHeight,
+      blurDataURL: meta?.blurDataURL,
+      placeholder: meta?.blurDataURL ? "blur" : "empty",
+    };
+  } catch (e) {
+    return null;
+  }
 };
 
 /**
@@ -27,17 +77,33 @@ export function remarkImgToJsx() {
 
         // Construct the local file path
         const imagePath = path.join(process.cwd(), "public", imageNode.url);
-        console.log(`Checking file: ${imagePath}`);
+        const isExternal = imageNode.url.startsWith("http");
 
-        // Check if the file exists locally
-        if (fs.existsSync(imagePath)) {
-          console.log(`File exists: ${imagePath}`);
+        const processImage = async () => {
+          let dimensions: { width: number; height: number } | null = null;
+          if (isExternal) {
+            const imageRes = await fetch(imageNode.url);
+            const arrayBuffer = await imageRes.arrayBuffer();
+            const imgBuffer = Buffer.from(arrayBuffer);
+            dimensions = sizeOf(imgBuffer);
+          } else {
+            if (fs.existsSync(imagePath)) {
+              console.log(`File exists: ${imagePath}`);
+              dimensions = sizeOf(fs.readFileSync(imagePath));
+            } else {
+              console.error(`File does not exist: ${imagePath}`);
+            }
+          }
 
-          // Get the dimensions of the image
-          const dimensions = sizeOf(fs.readFileSync(imagePath));
           if (dimensions !== null) {
             console.log(
               `Image dimensions: ${dimensions.width}x${dimensions.height}`
+            );
+
+            const blurData = await getBlurData(
+              imageNode.url,
+              dimensions.width,
+              dimensions.height
             );
 
             // Convert the original node to next/image jsx
@@ -65,15 +131,31 @@ export function remarkImgToJsx() {
                 value: dimensions.height,
               },
             ];
+
+            if (blurData?.blurDataURL) {
+              imageNode.attributes.push(
+                {
+                  type: "mdxJsxAttribute",
+                  name: "placeholder",
+                  value: blurData.placeholder,
+                },
+                {
+                  type: "mdxJsxAttribute",
+                  name: "blurDataURL",
+                  value: blurData.blurDataURL,
+                }
+              );
+            }
+
             // Change the node type from p to div to avoid nesting error
             node.type = "div";
             node.children[imageNodeIndex] = imageNode;
           } else {
-            console.error(`Error getting image dimensions: ${imagePath}`);
+            console.error(`Error getting image dimensions: ${imageNode.url}`);
           }
-        } else {
-          console.error(`File does not exist: ${imagePath}`);
-        }
+        };
+
+        promises.push(processImage());
       }
     });
 
