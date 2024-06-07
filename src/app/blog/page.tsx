@@ -1,12 +1,12 @@
 "use client";
 
-import PostItem from "@/components/PostItem";
+import PostItem from "@/components/atoms/PostItem";
 import { posts } from "@site/content";
 import { blogConfig } from "@/config/blog";
 import { useBlogPagination } from "@/hooks/useBlogPagination";
-import QueryPagination from "@/components/QueryPagination";
+import QueryPagination from "@/components/atoms/QueryPagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tag } from "@/components/tag";
+import { Tag } from "@/components/atoms/tag";
 import { getAllTags, sortTagsByCount } from "@/lib/tagUtils";
 
 interface BlogPageProps {

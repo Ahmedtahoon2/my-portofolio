@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /static/
+Disallow: /static/fonts/
+Disallow: /frames/
+Disallow: /share/

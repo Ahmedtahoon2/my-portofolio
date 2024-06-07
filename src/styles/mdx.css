@@ -47,3 +47,11 @@
 .subheading-anchor {
   @apply no-underline hover:underline;
 }
+
+details.toc {
+  @apply mb-4
+}
+
+span.toc-title {
+  @apply text-2xl cursor-pointer
+}

@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Button } from "./ui/button";
-import { MobileLink } from "./MobileLink";
-import { Icons } from "./Icons";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { MobileLink } from "@/components/atoms/MobileLink";
+import { Icons } from "@/components/atoms/Icons";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);

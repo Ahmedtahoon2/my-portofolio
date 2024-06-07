@@ -1,27 +1,12 @@
+import localFont from "next/font/local";
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
-import { Providers } from "@/components/Providers";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Providers } from "@/components/molecules/Providers";
+import Header from "@/components/molecules/Header";
+import Footer from "@/components/molecules/Footer";
 import "@/styles/core.css";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
-};
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
 
 export default function RootLayout({
   children,
@@ -29,15 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning={true}
-      className="scroll-pt-[4rem] scroll-smooth scrollbar-none"
-    >
+    <html lang="en" dir="ltr" suppressHydrationWarning={true}>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.variable
+          "font-sans antialiased",
+          Inter.variable,
+          Manrope.variable
         )}
       >
         <Providers>
@@ -51,3 +33,34 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const Inter = localFont({
+  src: "../assets/fonts/InterVariable.woff2",
+  variable: "--font-inter",
+  display: "swap",
+  weight: "1 999",
+});
+
+export const Manrope = localFont({
+  src: "../assets/fonts/ManropeVariable.woff2",
+  variable: "--font-manrope",
+  display: "swap",
+  weight: "1 999",
+  preload: false,
+});
+
+export const metadata: Metadata = {
+  title: siteConfig.name,
+  description: siteConfig.description,
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
+  alternates: {
+    canonical: "/",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};

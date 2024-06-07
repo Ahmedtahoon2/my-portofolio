@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { posts } from "@site/content";
 import { siteConfig } from "@/config/site";
-import { MDXContent } from "@/components/MdxComponent";
-import { Tag } from "@/components/tag";
+import { MDXContent } from "@/components/molecules/MdxComponent";
+import { Tag } from "@/components/atoms/tag";
 import "@/styles/mdx.css";
 
 interface PostPageProps {

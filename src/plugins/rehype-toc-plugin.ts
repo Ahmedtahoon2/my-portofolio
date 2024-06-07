@@ -35,14 +35,14 @@ const customizeToc = (toc: RehypeElement): RehypeElement | null => {
         type: "element",
         tagName: "summary",
         properties: {
-          className: ["title cursor-pointer"],
+          className: ["cursor-pointer"],
           "data-type": "toc-title",
         },
         children: [
           {
             type: "element",
             tagName: "span",
-            properties: { className: ["cursor-pointer"] },
+            properties: { className: ["toc-title"] },
             children: [
               {
                 type: "text",
