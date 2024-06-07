@@ -9,5 +9,3 @@ export const siteConfig = {
     personalSite: "https://jamesshopland.com",
   },
 };
-
-export type SiteConfig = typeof siteConfig;

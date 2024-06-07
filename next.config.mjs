@@ -23,6 +23,10 @@ class VeliteWebpackPlugin {
 
 const nextConfig = {
   // other next config here...
+  swcMinify: true,
+  reactStrictMode: true,
+  compress: true,
+  crossOrigin: "anonymous",
   webpack: (config, { isServer }) => {
     config.plugins.push(new VeliteWebpackPlugin());
 

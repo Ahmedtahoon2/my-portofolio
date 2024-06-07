@@ -5,6 +5,7 @@ import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypePresetMinify from "rehype-preset-minify";
+import remarkUnwrapImages from "remark-unwrap-images";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
@@ -77,6 +78,6 @@ export default defineConfig({
       rehypePresetMinify,
       rehypeTocPlugin,
     ],
-    remarkPlugins: [remarkImgToJsx, remarkGfm],
+    remarkPlugins: [remarkImgToJsx, remarkUnwrapImages, remarkGfm],
   },
 });

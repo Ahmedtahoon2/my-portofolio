@@ -29,6 +29,7 @@
     "precommit",
     "rehype",
     "shadcn",
+    "slugified",
     "tailwindcss",
     "unist",
     "velite",

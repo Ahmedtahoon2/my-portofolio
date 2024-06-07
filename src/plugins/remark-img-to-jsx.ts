@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { getImageMetadata } from "velite";
 import fs from "fs";
 import path from "path";
+import fetch from "node-fetch";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -15,6 +16,7 @@ export type ImageNode = Parent & {
   alt: string;
   name: string;
   attributes: (Literal & { name: string })[];
+  parent?: Parent;
 };
 
 interface BlurResult {
@@ -57,6 +59,33 @@ export const getBlurData = async (
       placeholder: meta?.blurDataURL ? "blur" : "empty",
     };
   } catch (e) {
+    console.error(`Error getting blur data: ${e}`);
+    return null;
+  }
+};
+
+const getImageDimensions = async (
+  imageNode: ImageNode,
+  isExternal: boolean
+): Promise<{ width: number; height: number } | null> => {
+  try {
+    if (isExternal) {
+      const imageRes = await fetch(imageNode.url);
+      const arrayBuffer = await imageRes.arrayBuffer();
+      const imgBuffer = Buffer.from(arrayBuffer);
+      return sizeOf(imgBuffer);
+    } else {
+      const imagePath = path.join(process.cwd(), "public", imageNode.url);
+      if (fs.existsSync(imagePath)) {
+        console.log(`File exists: ${imagePath}`);
+        return sizeOf(fs.readFileSync(imagePath));
+      } else {
+        console.error(`File does not exist: ${imagePath}`);
+        return null;
+      }
+    }
+  } catch (error) {
+    console.error(`Error getting image dimensions: ${error}`);
     return null;
   }
 };
@@ -68,95 +97,76 @@ export function remarkImgToJsx() {
   return async (tree: Node) => {
     const promises: Promise<void>[] = [];
 
-    // Visit each paragraph node in the tree
-    visit(tree, "paragraph", (node: Parent) => {
-      // Check if the paragraph contains an image node
-      if (node.children.some(n => n.type === "image")) {
-        const imageNodeIndex = node.children.findIndex(n => n.type === "image");
-        const imageNode = node.children[imageNodeIndex] as ImageNode;
+    // Visit each image node in the tree
+    visit(tree, "image", (imageNode: ImageNode, index, parent) => {
+      const isExternal = imageNode.url.startsWith("http");
+      imageNode.parent = parent; // Set the parent property on the image node
 
-        // Construct the local file path
-        const imagePath = path.join(process.cwd(), "public", imageNode.url);
-        const isExternal = imageNode.url.startsWith("http");
+      const processImage = async () => {
+        const dimensions = await getImageDimensions(imageNode, isExternal);
 
-        const processImage = async () => {
-          let dimensions: { width: number; height: number } | null = null;
-          if (isExternal) {
-            const imageRes = await fetch(imageNode.url);
-            const arrayBuffer = await imageRes.arrayBuffer();
-            const imgBuffer = Buffer.from(arrayBuffer);
-            dimensions = sizeOf(imgBuffer);
-          } else {
-            if (fs.existsSync(imagePath)) {
-              console.log(`File exists: ${imagePath}`);
-              dimensions = sizeOf(fs.readFileSync(imagePath));
-            } else {
-              console.error(`File does not exist: ${imagePath}`);
-            }
+        if (dimensions) {
+          console.log(
+            `Image dimensions: ${dimensions.width}x${dimensions.height}`
+          );
+
+          const blurData = await getBlurData(
+            imageNode.url,
+            dimensions.width,
+            dimensions.height
+          );
+
+          // Convert the original node to next/image jsx
+          imageNode.type = "mdxJsxFlowElement";
+          imageNode.name = "Image";
+          imageNode.attributes = [
+            {
+              type: "mdxJsxAttribute",
+              name: "alt",
+              value: imageNode.alt,
+            },
+            {
+              type: "mdxJsxAttribute",
+              name: "src",
+              value: imageNode.url,
+            },
+            {
+              type: "mdxJsxAttribute",
+              name: "width",
+              value: dimensions.width,
+            },
+            {
+              type: "mdxJsxAttribute",
+              name: "height",
+              value: dimensions.height,
+            },
+          ];
+
+          if (blurData?.blurDataURL) {
+            imageNode.attributes.push(
+              {
+                type: "mdxJsxAttribute",
+                name: "placeholder",
+                value: blurData.placeholder,
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "blurDataURL",
+                value: blurData.blurDataURL,
+              }
+            );
           }
 
-          if (dimensions !== null) {
-            console.log(
-              `Image dimensions: ${dimensions.width}x${dimensions.height}`
-            );
-
-            const blurData = await getBlurData(
-              imageNode.url,
-              dimensions.width,
-              dimensions.height
-            );
-
-            // Convert the original node to next/image jsx
-            imageNode.type = "mdxJsxFlowElement";
-            imageNode.name = "Image";
-            imageNode.attributes = [
-              {
-                type: "mdxJsxAttribute",
-                name: "alt",
-                value: imageNode.alt,
-              },
-              {
-                type: "mdxJsxAttribute",
-                name: "src",
-                value: imageNode.url,
-              },
-              {
-                type: "mdxJsxAttribute",
-                name: "width",
-                value: dimensions.width,
-              },
-              {
-                type: "mdxJsxAttribute",
-                name: "height",
-                value: dimensions.height,
-              },
-            ];
-
-            if (blurData?.blurDataURL) {
-              imageNode.attributes.push(
-                {
-                  type: "mdxJsxAttribute",
-                  name: "placeholder",
-                  value: blurData.placeholder,
-                },
-                {
-                  type: "mdxJsxAttribute",
-                  name: "blurDataURL",
-                  value: blurData.blurDataURL,
-                }
-              );
-            }
-
-            // Change the node type from p to div to avoid nesting error
-            node.type = "div";
-            node.children[imageNodeIndex] = imageNode;
-          } else {
-            console.error(`Error getting image dimensions: ${imageNode.url}`);
+          // Replace parent node type from p to div to avoid nesting error
+          if (imageNode.parent) {
+            imageNode.parent.type = "div";
           }
-        };
+        } else {
+          console.error(`Error getting image dimensions: ${imageNode.url}`);
+        }
+      };
 
-        promises.push(processImage());
-      }
+      promises.push(processImage());
     });
 
     await Promise.all(promises);
