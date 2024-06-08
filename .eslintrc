@@ -5,45 +5,42 @@
     "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true,
-    },
+      "jsx": true
+    }
   },
   "settings": {
     "react": {
-      "version": "detect",
-    },
+      "version": "detect"
+    }
   },
   "env": {
     "browser": true,
     "es6": true,
-    "node": true,
+    "node": true
   },
   "extends": [
     "next/core-web-vitals",
-    "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "prettier",
+    "prettier"
   ],
   "plugins": [
-    "react",
     "react-hooks",
     "jsx-a11y",
     "@typescript-eslint",
-    "prettier",
+    "prettier"
   ],
   "rules": {
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "auto",
-      },
+        "endOfLine": "auto"
+      }
     ],
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "react/prop-types": "off",
-  },
+  }
 }
