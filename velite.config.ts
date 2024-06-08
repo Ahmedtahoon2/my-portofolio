@@ -1,5 +1,4 @@
 import { defineConfig, defineCollection, s } from "velite";
-import { remarkImgToJsx } from "@/plugins/remark-img-to-jsx";
 import { rehypeTocPlugin } from "@/plugins/rehype-toc-plugin";
 import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -78,6 +77,6 @@ export default defineConfig({
       rehypePresetMinify,
       rehypeTocPlugin,
     ],
-    remarkPlugins: [remarkImgToJsx, remarkUnwrapImages, remarkGfm],
+    remarkPlugins: [remarkUnwrapImages, remarkGfm],
   },
 });
