@@ -5,7 +5,7 @@ import { Icons } from "@/components/atoms/Icons";
 export default function Footer() {
   return (
     <footer>
-      <div className="mb-6 mt-14 flex flex-col items-center">
+      <div className="mb-6 mt-10 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
           <a target="_blank" rel="noreferrer" href="mailto:hello@example.com">
             <span className="sr-only">Mail</span>
@@ -21,11 +21,7 @@ export default function Footer() {
           </a>
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.personalSite}
-          >
+          <a target="_blank" rel="noreferrer" href={siteConfig.url}>
             {siteConfig.author}
           </a>
         </div>

@@ -6,7 +6,7 @@ import { blogConfig } from "@/config/blog";
 import { useBlogPagination } from "@/hooks/useBlogPagination";
 import QueryPagination from "@/components/atoms/QueryPagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tag } from "@/components/atoms/tag";
+import { Tag } from "@/components/atoms/Tag";
 import { getAllTags, sortTagsByCount } from "@/lib/tagUtils";
 
 interface BlogPageProps {

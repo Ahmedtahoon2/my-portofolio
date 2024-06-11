@@ -15,7 +15,7 @@
     font-size: 100%;
   }
   body {
-    @apply isolate antialiased leading-normal;
+    @apply isolate leading-normal antialiased;
     height: stretch;
   }
   img,
@@ -31,10 +31,10 @@
   h4,
   h5,
   h6 {
-    @apply break-words text-balance;
+    @apply text-balance break-words font-manrope;
   }
   p {
-    @apply text-pretty;
+    @apply text-pretty font-inter;
   }
   code,
   kbd,
@@ -47,7 +47,7 @@
 
 html,
 body {
-  @apply motion-safe:scroll-smooth bg-background accent-accent scrollbar-none;
+  @apply bg-background accent-accent scrollbar-none motion-safe:scroll-smooth;
 }
 
 html {
@@ -55,7 +55,7 @@ html {
 }
 
 body {
-  @apply text-xs overflow-x-hidden;
+  @apply overflow-x-hidden text-xs;
   @apply flex flex-col;
 }
 
@@ -69,19 +69,19 @@ a * {
 }
 
 figure {
-  @apply block relative m-0;
+  @apply relative m-0 block;
 }
 
 figure figcaption {
-  @apply text-xl text-center my-2.5;
+  @apply my-2.5 text-center text-xl;
 }
 
-input[type='text'],
-input[type='email'] {
+input[type="text"],
+input[type="email"] {
   @apply appearance-none;
 }
 
-input[type='checkbox'] {
+input[type="checkbox"] {
   @apply align-middle;
 }
 
@@ -92,7 +92,7 @@ input[type='checkbox'] {
 
 /* Fix image border in Safari for lazy loading images. See https://nextjs.org/docs/api-reference/next/future/image#known-browser-bugs */
 @media not all and (min-resolution: 0.001dpcm) {
-  img[loading='lazy'] {
+  img[loading="lazy"] {
     clip-path: inset(0.5px);
   }
 }

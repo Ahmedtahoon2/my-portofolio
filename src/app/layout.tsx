@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import ogImage from "./opengraph-image.png";
 import type { Metadata, Viewport } from "next";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -14,7 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning={true}>
+    <html
+      lang={siteConfig.geolocation.lang}
+      dir={siteConfig.geolocation.dir}
+      suppressHydrationWarning={true}
+    >
       <body
         className={cn(
           "font-sans antialiased",
@@ -25,7 +30,7 @@ export default function RootLayout({
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex flex-1 flex-col">{children}</main>
             <Footer />
           </div>
         </Providers>
@@ -53,6 +58,24 @@ export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
+  openGraph: {
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+      },
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+      },
+    ],
+  },
   alternates: {
     canonical: "/",
   },

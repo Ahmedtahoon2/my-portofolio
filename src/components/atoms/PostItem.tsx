@@ -3,7 +3,7 @@ import { Calendar } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { formatDate } from "@/lib/formatDate";
 import { cn } from "@/lib/utils";
-import { Tag } from "@/components/atoms/tag";
+import { Tag } from "@/components/atoms/Tag";
 
 interface PostItemProps {
   slug: string;

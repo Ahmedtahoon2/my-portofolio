@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { posts } from "@site/content";
-import { Tag } from "@/components/atoms/tag";
+import { Tag } from "@/components/atoms/Tag";
 import { getAllTags, sortTagsByCount } from "@/lib/tagUtils";
 
 export const metadata: Metadata = {

@@ -36,5 +36,6 @@
     "Velite",
     "vfile"
   ],
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

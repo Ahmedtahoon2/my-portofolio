@@ -1,2 +1,7 @@
+# Next.js & velite Directories
+.next
+.velite
+
+# app dirs
 src/components/ui/*
 app/api/*

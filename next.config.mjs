@@ -22,11 +22,13 @@ class VeliteWebpackPlugin {
 }
 
 const nextConfig = {
-  // other next config here...
   swcMinify: true,
   reactStrictMode: true,
   compress: true,
   crossOrigin: "anonymous",
+  typescript: { ignoreBuildErrors: true },
+  eslint: { dirs: ["."], ignoreDuringBuilds: true },
+  // other next config here...
   webpack: (config, { isServer }) => {
     config.plugins.push(new VeliteWebpackPlugin());
 

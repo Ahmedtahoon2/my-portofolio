@@ -1,13 +1,14 @@
 import { defineConfig, defineCollection, s } from "velite";
 import { remarkImgToJsx } from "@/plugins/remark-img-to-jsx";
 import { rehypeTocPlugin } from "@/plugins/rehype-toc-plugin";
+import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
-import rehypePresetMinify from "rehype-preset-minify";
-import remarkUnwrapImages from "remark-unwrap-images";
+import rehypeExternalLinks from "rehype-external-links";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import smartypants from "remark-smartypants";
 
 const computedFields = <T extends { slug: string; body: string }>(data: T) => {
   const readingTimeResult = calcReadingTime(data.body);
@@ -56,12 +57,12 @@ export default defineConfig({
           theme: "dark-plus",
           tokensMap: {
             var: "variable.other",
-            fn: "entity.name.function", // green
-            cls: "entity.name.class", // blue
-            str: "string", // amber
-            num: "constant.numeric", // purple
-            key: "keyword", // red
-            prm: "variable.parameter", // orange
+            fn: "entity.name.function",
+            cls: "entity.name.class",
+            str: "string",
+            num: "constant.numeric",
+            key: "keyword",
+            prm: "variable.parameter",
           },
         },
       ],
@@ -75,9 +76,13 @@ export default defineConfig({
           },
         },
       ],
-      rehypePresetMinify,
+      [
+        rehypeExternalLinks,
+        { target: "_blank", rel: ["nofollow", "noopener", "noreferrer"] },
+      ],
+      rehypeAccessibleEmojis,
       rehypeTocPlugin,
     ],
-    remarkPlugins: [remarkImgToJsx, remarkUnwrapImages, remarkGfm],
+    remarkPlugins: [remarkImgToJsx, remarkGfm, smartypants],
   },
 });

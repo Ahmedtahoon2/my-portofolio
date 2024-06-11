@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { posts } from "@site/content";
 import { siteConfig } from "@/config/site";
 import { MDXContent } from "@/components/molecules/MdxComponent";
-import { Tag } from "@/components/atoms/tag";
+import { Tag } from "@/components/atoms/Tag";
 import "@/styles/mdx.css";
 
 interface PostPageProps {
@@ -73,8 +73,8 @@ export default async function PostPage({ params }: PostPageProps) {
 
     return (
       <article className="container prose mx-auto max-w-3xl py-6 dark:prose-invert">
-        <h1 className="mb-2">{post.title}</h1>
-        <div className="mb-2 flex gap-2">
+        <h1 className="mb-4">{post.title}</h1>
+        <div className="mb-4 flex gap-2">
           {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
         </div>
         {post.description ? (

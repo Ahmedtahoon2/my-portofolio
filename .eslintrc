@@ -22,14 +22,11 @@
     "next/core-web-vitals",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:mdx/recommended",
     "plugin:prettier/recommended",
     "prettier"
   ],
-  "plugins": [
-    "react-hooks",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["react-hooks", "@typescript-eslint", "mdx", "prettier"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -40,5 +37,11 @@
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.md?(x)"],
+      "extends": "plugin:mdx/recommended"
+    }
+  ]
 }

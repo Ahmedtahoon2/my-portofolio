@@ -36,8 +36,12 @@
   @apply border-b-2 p-1 shadow-none;
 }
 
+[data-rehype-pretty-code-figure] [data-rehype-pretty-code-caption] {
+  @apply text-lg;
+}
+
 [data-rehype-pretty-code-title] {
-  @apply rounded-t-md bg-gray-700 p-2 text-sm font-semibold text-gray-200;
+  @apply rounded-t-md bg-gray-700 p-2 font-mono text-sm font-semibold text-gray-200;
 }
 
 [data-rehype-pretty-code-title] ~ pre {
@@ -49,9 +53,13 @@
 }
 
 details.toc {
-  @apply mb-4
+  @apply mb-4;
 }
 
 span.toc-title {
-  @apply text-2xl cursor-pointer
+  @apply cursor-pointer text-2xl;
+}
+
+p {
+  @apply text-xl;
 }
