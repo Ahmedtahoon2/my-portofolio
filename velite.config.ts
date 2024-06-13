@@ -6,6 +6,7 @@ import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeMinifyWhitespace from "rehype-minify-whitespace";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import smartypants from "remark-smartypants";
@@ -31,7 +32,7 @@ const posts = defineCollection({
       description: s.string().max(999).optional(),
       date: s.isodate(),
       published: s.boolean().default(true),
-      tags: s.array(s.string()).optional(),
+      tags: s.array(s.string()),
       body: s.mdx(),
     })
     .transform(computedFields),
@@ -80,6 +81,7 @@ export default defineConfig({
         rehypeExternalLinks,
         { target: "_blank", rel: ["nofollow", "noopener", "noreferrer"] },
       ],
+      rehypeMinifyWhitespace,
       rehypeAccessibleEmojis,
       rehypeTocPlugin,
     ],

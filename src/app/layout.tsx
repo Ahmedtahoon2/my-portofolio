@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import ogImage from "./opengraph-image.png";
 import type { Metadata, Viewport } from "next";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -58,26 +57,8 @@ export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
-  openGraph: {
-    images: [
-      {
-        url: ogImage.src,
-        width: ogImage.width,
-        height: ogImage.height,
-      },
-    ],
-  },
-  twitter: {
-    images: [
-      {
-        url: ogImage.src,
-        width: ogImage.width,
-        height: ogImage.height,
-      },
-    ],
-  },
   alternates: {
-    canonical: "/",
+    canonical: siteConfig.url,
   },
 };
 

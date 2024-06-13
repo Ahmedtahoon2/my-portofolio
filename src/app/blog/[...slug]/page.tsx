@@ -39,18 +39,24 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    keywords: post.tags.length > 0 ? post.tags.join(", ") : "",
     authors: { name: siteConfig.author },
+    alternates: {
+      canonical: post.slug,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       url: post.slug,
+      locale: siteConfig.geolocation.locale,
       images: [
         {
-          url: `/api/og?${ogSearchParams.toString()}`,
+          url: `${siteConfig.url}/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
           alt: post.title,
+          type: "image/png",
         },
       ],
     },
@@ -58,7 +64,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`],
+      images: [`${siteConfig.url}/api/og?${ogSearchParams.toString()}`],
     },
   };
 }
