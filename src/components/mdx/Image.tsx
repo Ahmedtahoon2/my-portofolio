@@ -6,6 +6,9 @@ type CustomImageProps = {
   width: number;
   height: number;
   alt: string;
+  layout?: string;
+  quality?: number;
+  blurDataURL?: string;
   caption?: string;
   breakout?: boolean;
   rounded?: boolean;
@@ -13,18 +16,21 @@ type CustomImageProps = {
   reset?: boolean;
 };
 
-export default function Image({
+const Image = ({
   src,
   width,
   height,
   alt,
+  layout,
+  quality,
+  blurDataURL,
   caption,
   breakout = false,
   rounded = false,
   priority = false,
   reset = false,
   ...rest
-}: CustomImageProps) {
+}: CustomImageProps) => {
   const containerClasses = cn({
     "not-prose my-8 w-full": !reset,
     "bg-tertiary": breakout,
@@ -51,11 +57,15 @@ export default function Image({
       <figure className={figureClasses}>
         <NextImage
           src={src}
+          alt={alt}
           width={width}
           height={height}
-          alt={alt}
+          layout={layout}
+          quality={quality}
           priority={priority}
           className={imageClasses}
+          placeholder={blurDataURL ? "blur" : "empty"}
+          blurDataURL={blurDataURL}
           {...rest}
         />
         {caption && (
@@ -64,4 +74,6 @@ export default function Image({
       </figure>
     </div>
   );
-}
+};
+
+export default Image;

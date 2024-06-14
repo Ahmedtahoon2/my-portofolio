@@ -1,12 +1,19 @@
-const calcReadingTime = (text: string) => {
+const calcReadingTime = (
+  text: string
+): { text: string; minutes: number; words: number } => {
+  // Calculate words count
+  const words = text.trim().split(/\s+/).length;
+
+  // Words per minute based on average reading speed
   const wordsPerMinute = 200;
-  const words = text.split(/\s+/).length;
-  const minutes = words / wordsPerMinute;
-  const readingTime = Math.ceil(minutes);
+
+  // Calculate reading time in minutes
+  const minutes = Math.ceil(words / wordsPerMinute);
+
   return {
-    text: `${readingTime} min read`,
-    minutes: readingTime,
-    words: words,
+    text: `${minutes} min read`,
+    minutes,
+    words,
   };
 };
 

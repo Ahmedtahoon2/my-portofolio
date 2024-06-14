@@ -5,8 +5,7 @@ interface RehypeElement {
   type: string;
   tagName?: string;
   value?: string;
-  attributes?: Record<string, unknown>;
-  properties: {
+  properties?: {
     className?: Array<string>;
     style?: string;
   } & Record<string, unknown>;
@@ -14,15 +13,7 @@ interface RehypeElement {
 }
 
 const customizeToc = (toc: RehypeElement): RehypeElement | null => {
-  try {
-    const children = toc?.children;
-    const childrenOfChildren = children?.[0]?.children;
-
-    if (!children?.length || !childrenOfChildren?.length) {
-      return null;
-    }
-  } catch (e) {
-    console.error("Error customizing TOC:", e);
+  if (!toc?.children?.length || !toc.children[0]?.children?.length) {
     return null;
   }
 
@@ -47,7 +38,6 @@ const customizeToc = (toc: RehypeElement): RehypeElement | null => {
               {
                 type: "text",
                 value: "Table of Contents",
-                properties: {},
               },
             ],
           },
@@ -56,8 +46,7 @@ const customizeToc = (toc: RehypeElement): RehypeElement | null => {
       {
         type: "element",
         tagName: "nav",
-        properties: {},
-        children: toc.children || [],
+        children: toc.children,
       },
     ],
   };
