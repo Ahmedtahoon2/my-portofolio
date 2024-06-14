@@ -19,13 +19,7 @@ export default function RootLayout({
       dir={siteConfig.geolocation.dir}
       suppressHydrationWarning={true}
     >
-      <body
-        className={cn(
-          "font-sans antialiased",
-          Inter.variable,
-          Manrope.variable
-        )}
-      >
+      <body className={cn("antialiased", Inter.variable, Manrope.variable)}>
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
             <Header />

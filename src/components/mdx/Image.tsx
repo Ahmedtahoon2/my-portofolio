@@ -1,5 +1,5 @@
 import NextImage from "next/image";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 type CustomImageProps = {
   src: string;
@@ -25,23 +25,23 @@ export default function Image({
   reset = false,
   ...rest
 }: CustomImageProps) {
-  const containerClasses = clsx({
+  const containerClasses = cn({
     "not-prose my-8 w-full": !reset,
     "bg-tertiary": breakout,
     "overflow-hidden rounded-md md:rounded-lg": rounded || breakout,
   });
 
-  const figureClasses = clsx("m-0 flex flex-col", {
+  const figureClasses = cn("m-0 flex flex-col", {
     "gap-4": breakout,
     "gap-2": !breakout,
   });
 
-  const imageClasses = clsx("h-auto w-full", {
+  const imageClasses = cn("h-auto w-full", {
     "bg-tertiary": breakout,
     "bg-tertiary overflow-hidden rounded-md md:rounded-lg": rounded || breakout,
   });
 
-  const captionClasses = clsx(
+  const captionClasses = cn(
     "text-tertiary mx-auto my-2 max-w-md text-center text-xs font-medium leading-tight",
     { "mx-auto w-full max-w-[700px] px-6": breakout }
   );
