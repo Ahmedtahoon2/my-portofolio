@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply isolate leading-normal antialiased flex flex-col overflow-x-hidden text-xs;
+    @apply isolate flex flex-col overflow-x-hidden text-xs leading-normal antialiased;
     height: stretch;
   }
 

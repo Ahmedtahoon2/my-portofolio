@@ -1,26 +1,31 @@
 import { slug } from "github-slugger";
 import { Post } from "@site/content";
 
-export function getAllTags(posts: Post[]) {
-  const tags: Record<string, number> = {};
+export function getAllTags(posts: Post[]): Record<string, number> {
+  const tags = new Map<string, number>();
+
   posts.forEach(post => {
     if (post.published) {
       post.tags?.forEach(tag => {
-        tags[tag] = (tags[tag] ?? 0) + 1;
+        tags.set(tag, (tags.get(tag) ?? 0) + 1);
       });
     }
   });
-  return tags;
+
+  return Object.fromEntries(tags);
 }
 
-export function sortTagsByCount(tags: Record<string, number>) {
-  return Object.keys(tags).sort((a, b) => tags[b] - tags[a]);
+export function sortTagsByCount(tags: Record<string, number>): string[] {
+  return Object.entries(tags)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .map(([tag]) => tag);
 }
 
-export function getPostsByTagSlug(posts: Array<Post>, tag: string) {
+export function getPostsByTagSlug(posts: Post[], tag: string): Post[] {
+  const slugifiedTag = slug(tag);
+
   return posts.filter(post => {
     if (!post.tags) return false;
-    const slugifiedTags = post.tags.map(tag => slug(tag));
-    return slugifiedTags.includes(tag);
+    return post.tags.some(postTag => slug(postTag) === slugifiedTag);
   });
 }

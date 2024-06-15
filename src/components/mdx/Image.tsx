@@ -6,8 +6,6 @@ type CustomImageProps = {
   width: number;
   height: number;
   alt: string;
-  layout?: string;
-  quality?: number;
   blurDataURL?: string;
   caption?: string;
   breakout?: boolean;
@@ -21,8 +19,6 @@ const Image = ({
   width,
   height,
   alt,
-  layout,
-  quality,
   blurDataURL,
   caption,
   breakout = false,
@@ -60,8 +56,6 @@ const Image = ({
           alt={alt}
           width={width}
           height={height}
-          layout={layout}
-          quality={quality}
           priority={priority}
           className={imageClasses}
           placeholder={blurDataURL ? "blur" : "empty"}

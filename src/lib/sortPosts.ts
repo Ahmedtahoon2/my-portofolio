@@ -1,8 +1,11 @@
 import { Post } from "@site/content";
 
 export function sortPosts(posts: Post[]): Post[] {
-  const sortedPosts = posts.filter(post => post.published);
-  return sortedPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  return posts
+    .filter(post => post.published)
+    .sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
 }
