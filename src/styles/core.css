@@ -8,7 +8,7 @@
   }
 
   * {
-    @apply m-0;
+    @apply m-0 subpixel-antialiased;
     font: inherit;
   }
 
@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply isolate flex flex-col overflow-x-hidden text-xs leading-normal antialiased;
+    @apply isolate flex flex-col overflow-x-hidden text-sm leading-relaxed antialiased;
     height: stretch;
   }
 
@@ -100,17 +100,11 @@
       transition-delay: -1ms !important;
     }
   }
-
-  body main,
-  body section,
-  body article,
-  body article [id] {
-    @apply scroll-pt-[4rem];
-  }
 }
 
 html {
   margin-left: calc(100vw - 100%);
+  scroll-padding-top: 5rem;
 }
 
 html,
