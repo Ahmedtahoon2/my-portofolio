@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
             <Header />
-            <main className="flex flex-1 flex-col pt-[4rem]">{children}</main>
+            <main className="flex flex-1 flex-col">{children}</main>
             <Footer />
           </div>
         </Providers>
