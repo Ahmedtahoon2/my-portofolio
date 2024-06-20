@@ -1,7 +1,10 @@
 import { defineConfig, defineCollection, s } from "velite";
-import { remarkImgToJsx } from "@/plugins/remark-img-to-jsx";
-import { rehypeTocPlugin } from "@/plugins/rehype-toc-plugin";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
+import {
+  remarkImgToJsx,
+  remarkInternalLinkToJsx,
+  rehypeTocPlugin,
+} from "@/plugins/mdx";
 import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -85,6 +88,11 @@ export default defineConfig({
       rehypeAccessibleEmojis,
       rehypeTocPlugin,
     ],
-    remarkPlugins: [remarkImgToJsx, remarkGfm, smartypants],
+    remarkPlugins: [
+      remarkImgToJsx,
+      remarkInternalLinkToJsx,
+      remarkGfm,
+      smartypants,
+    ],
   },
 });

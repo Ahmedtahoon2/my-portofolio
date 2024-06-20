@@ -8,6 +8,7 @@ export interface MDXLayoutRenderer {
   [key: string]: unknown;
 }
 
+// Helper function to get the MDX component
 const getMDXComponent = (
   code: string,
   globals: Record<string, unknown> = {}
@@ -17,6 +18,7 @@ const getMDXComponent = (
   return fn(...Object.values(scope)).default;
 };
 
+// Hook to use the MDX component
 export const useMDXComponent = (
   code: string,
   globals: Record<string, unknown> = {}

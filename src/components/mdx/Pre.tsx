@@ -21,13 +21,15 @@ export default function Pre(
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setCopied(false), 1000);
-    return () => clearTimeout(timer);
+    if (copied) {
+      const timer = setTimeout(() => setCopied(false), 1000);
+      return () => clearTimeout(timer);
+    }
   }, [copied]);
 
   const handleClickCopy = async () => {
     if (preRef.current?.innerText) {
-      copyToClipboard(preRef.current.innerText);
+      await copyToClipboard(preRef.current.innerText);
       setCopied(true);
     }
   };
@@ -36,12 +38,12 @@ export default function Pre(
     <TooltipProvider>
       <div className="relative">
         <Tooltip>
-          <pre {...props} ref={preRef}>
-            <TooltipTrigger
+          <TooltipTrigger asChild>
+            <button
               type="button"
               disabled={copied}
               onClick={handleClickCopy}
-              aria-label="Copy to Clipboard"
+              aria-label={copied ? "Copied to clipboard" : "Copy to clipboard"}
               className={cn(
                 "absolute right-0 top-0 m-2 cursor-pointer space-x-2 rounded-md border bg-gray-600/15 p-[0.6rem] transition group-hover:flex focus:outline-none disabled:flex",
                 copied ? "border-green-400/80" : "border-transparent"
@@ -63,11 +65,13 @@ export default function Pre(
                   />
                 )}
               </div>
-            </TooltipTrigger>
-            <TooltipContent>copy</TooltipContent>
-            {props.children}
-          </pre>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>{copied ? "Copied" : "Copy"}</TooltipContent>
         </Tooltip>
+        <pre {...props} ref={preRef}>
+          {props.children}
+        </pre>
       </div>
     </TooltipProvider>
   );

@@ -1,7 +1,7 @@
 import NextImage from "next/image";
 import { cn } from "@/lib/utils";
 
-type CustomImageProps = {
+interface CustomImageProps {
   src: string;
   width: number;
   height: number;
@@ -12,9 +12,9 @@ type CustomImageProps = {
   rounded?: boolean;
   priority?: boolean;
   reset?: boolean;
-};
+}
 
-const Image = ({
+const Image: React.FC<CustomImageProps> = ({
   src,
   width,
   height,
@@ -26,26 +26,25 @@ const Image = ({
   priority = false,
   reset = false,
   ...rest
-}: CustomImageProps) => {
-  const containerClasses = cn({
-    "not-prose my-8 w-full": !reset,
-    "bg-tertiary": breakout,
-    "overflow-hidden rounded-md md:rounded-lg": rounded || breakout,
-  });
+}) => {
+  const containerClasses = cn(
+    !reset && "not-prose my-8 w-full",
+    breakout && "bg-tertiary",
+    (rounded || breakout) && "overflow-hidden rounded-md md:rounded-lg"
+  );
 
-  const figureClasses = cn("m-0 flex flex-col", {
-    "gap-4": breakout,
-    "gap-2": !breakout,
-  });
+  const figureClasses = cn("m-0 flex flex-col", breakout ? "gap-4" : "gap-2");
 
-  const imageClasses = cn("h-auto w-full", {
-    "bg-tertiary": breakout,
-    "bg-tertiary overflow-hidden rounded-md md:rounded-lg": rounded || breakout,
-  });
+  const imageClasses = cn(
+    "h-auto w-full",
+    breakout && "bg-tertiary",
+    (rounded || breakout) &&
+      "bg-tertiary overflow-hidden rounded-md md:rounded-lg"
+  );
 
   const captionClasses = cn(
     "text-tertiary mx-auto my-2 max-w-md text-center text-xs font-medium leading-tight",
-    { "mx-auto w-full max-w-[700px] px-6": breakout }
+    breakout && "mx-auto w-full max-w-[700px] px-6"
   );
 
   return (

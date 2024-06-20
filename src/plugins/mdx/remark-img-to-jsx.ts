@@ -8,15 +8,18 @@ import sharp from "sharp";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_RESIZE_DIMENSIONS = { width: 10, height: 10 };
+const VALID_BLUR_EXT = [".jpeg", ".png", ".webp", ".avif", ".jpg"];
+const EXTERNAL_URL_REGEX = /^https?:\/\//;
 
-type ImageNode = Parent & {
+// Define the structure of an ImageNode
+interface ImageNode extends Parent {
   url: string;
   alt: string;
   name: string;
   attributes: (Literal & { name: string })[];
   parent?: Parent;
-};
-
+}
+// Define the structure of the BlurResult
 interface BlurResult {
   width: number;
   height: number;
@@ -24,21 +27,26 @@ interface BlurResult {
   blurDataURL?: string;
 }
 
+// Configuration interface for optional logging
 interface Config {
   showLogs?: boolean;
 }
 
+// Utility function to log messages if logging is enabled
 const log = (message: string, config: Config) => {
   if (config.showLogs) {
     console.log(message);
   }
 };
 
-const handleError = (error: unknown, message: string) => {
+// Utility function to handle errors
+const handleError = (error: unknown, message: string): void => {
   const errorMessage = error instanceof Error ? error.message : String(error);
   console.error(`${message}: ${errorMessage}`);
 };
 
+// Function to fetch the image buffer,
+//   either from an external URL or the local filesystem
 const getImageBuffer = async (
   imageSrc: string,
   isExternal: boolean,
@@ -63,6 +71,7 @@ const getImageBuffer = async (
   }
 };
 
+// Function to get the dimensions of the image
 const getImageDimensions = async (
   imageSrc: string,
   isExternal: boolean,
@@ -79,6 +88,7 @@ const getImageDimensions = async (
   }
 };
 
+// Function to get the blur data for the image
 const getBlurData = async (
   imageSrc: string,
   isExternal: boolean,
@@ -123,8 +133,9 @@ const getBlurData = async (
   }
 };
 
+// Main function to process each image node
 const processImage = async (imageNode: ImageNode, config: Config) => {
-  const isExternal = imageNode.url.startsWith("http");
+  const isExternal = EXTERNAL_URL_REGEX.test(imageNode.url);
   const dimensions = await getImageDimensions(
     imageNode.url,
     isExternal,
@@ -140,6 +151,8 @@ const processImage = async (imageNode: ImageNode, config: Config) => {
       config
     );
 
+    const hasBlur = VALID_BLUR_EXT.some(ext => imageNode.url.endsWith(ext));
+
     imageNode.type = "mdxJsxFlowElement";
     imageNode.name = "Image";
     imageNode.attributes = [
@@ -149,7 +162,7 @@ const processImage = async (imageNode: ImageNode, config: Config) => {
       { type: "mdxJsxAttribute", name: "height", value: dimensions.height },
     ];
 
-    if (blurData?.blurDataURL) {
+    if (hasBlur && blurData?.blurDataURL) {
       imageNode.attributes.push(
         {
           type: "mdxJsxAttribute",
@@ -172,10 +185,12 @@ const processImage = async (imageNode: ImageNode, config: Config) => {
   }
 };
 
+// Main remark plugin function
 export function remarkImgToJsx(config: Config = { showLogs: false }) {
   return async (tree: Node) => {
     const promises: Promise<void>[] = [];
 
+    // Traverse the tree and process each image node
     visit(tree, "image", (imageNode: ImageNode, _, parent) => {
       imageNode.parent = parent;
       promises.push(processImage(imageNode, config));
