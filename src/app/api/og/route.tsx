@@ -54,7 +54,9 @@ export async function GET(req: NextRequest) {
             <p tw="ml-2 font-bold text-2xl">JollyBlog</p>
           </div>
           <div tw="flex flex-col flex-1 py-10">
-            <div tw="text-xl uppercase font-bold tracking-tight">BLOG POST</div>
+            <div tw="text-3xl uppercase font-bold tracking-tight pb-3">
+              BLOG POST
+            </div>
             <div tw="text-[80px] font-bold leading-none">{heading}</div>
           </div>
           <div tw="flex items-center w-full justify-between">

@@ -13,17 +13,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { lang, dir } = siteConfig.geolocation;
   return (
-    <html
-      lang={siteConfig.geolocation.lang}
-      dir={siteConfig.geolocation.dir}
-      suppressHydrationWarning={true}
-    >
-      <body className={cn("antialiased", Inter.variable, Manrope.variable)}>
+    <html lang={lang} dir={dir} suppressHydrationWarning={true}>
+      <body className={cn(Inter.variable, Manrope.variable)}>
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
             <Header />
-            <main className="flex flex-1 flex-col">{children}</main>
+            <main className="flex flex-1 flex-col pt-[4rem]">{children}</main>
             <Footer />
           </div>
         </Providers>

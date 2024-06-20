@@ -70,7 +70,7 @@ export default defineConfig({
       [
         rehypeAutolinkHeadings,
         {
-          behavior: "wrap",
+          behavior: "append",
           properties: {
             className: ["subheading-anchor"],
             ariaLabel: "Link to section",

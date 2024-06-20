@@ -4,11 +4,11 @@
   *,
   *::before,
   *::after {
-    @apply box-border;
+    @apply box-border border-border;
   }
 
   * {
-    @apply m-0;
+    @apply m-0 subpixel-antialiased;
     font: inherit;
   }
 
@@ -18,8 +18,8 @@
   }
 
   body {
-    @apply isolate flex flex-col overflow-x-hidden text-xs leading-normal antialiased;
-    height: stretch;
+    @apply isolate flex flex-col overflow-x-hidden bg-background text-sm text-foreground antialiased;
+    height: 100vh;
   }
 
   img,
@@ -55,6 +55,11 @@
     @apply cursor-default font-manrope;
   }
 
+  ul,
+  summary {
+    list-style-type: none;
+  }
+
   a,
   a * {
     @apply decoration-2 underline-offset-2;
@@ -82,35 +87,19 @@
     outline-offset: 0.25rem;
   }
 
-  /* Fix image border in Safari for lazy loading images. See https://nextjs.org/docs/api-reference/next/future/image#known-browser-bugs */
-  @media not all and (min-resolution: 0.001dpcm) {
-    img[loading="lazy"] {
-      clip-path: inset(0.5px);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::after,
     *::before {
       animation-duration: 1ms !important;
-      animation-delay: -1ms !important;
-      animation-iteration-count: 1 !important;
       transition-duration: 1ms !important;
-      transition-delay: -1ms !important;
     }
-  }
-
-  body main,
-  body section,
-  body article,
-  body article [id] {
-    @apply scroll-pt-[4rem];
   }
 }
 
 html {
   margin-left: calc(100vw - 100%);
+  scroll-padding-top: 5rem;
 }
 
 html,

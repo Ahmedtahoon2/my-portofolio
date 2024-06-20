@@ -48,10 +48,6 @@ const shadcnPlugin = plugin(
         "--ring": "216 12.2% 83.9%",
       },
     });
-    addBase({
-      "*": { "@apply border-border": {} },
-      body: { "@apply bg-background text-foreground": {} },
-    });
   },
   {
     darkMode: ["class"],

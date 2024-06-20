@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar } from "lucide-react";
+import { Calendar, MoveRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { formatDate } from "@/lib/formatDate";
 import { cn } from "@/lib/utils";
@@ -41,9 +41,9 @@ export default function PostItem({
         </dl>
         <Link
           href={"/" + slug}
-          className={cn(buttonVariants({ variant: "link" }), "py-0")}
+          className={cn(buttonVariants({ variant: "link" }), "gap-1 py-0")}
         >
-          Read more →
+          Read more <MoveRight className="pt-1" />
         </Link>
       </div>
     </article>

@@ -1,3 +1,5 @@
+"use client";
+
 import { MDXLayoutRenderer, useMDXComponent } from "@/hooks/mdx";
 import { components } from "@/components/mdx/components";
 

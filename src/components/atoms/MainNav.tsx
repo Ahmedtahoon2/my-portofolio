@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Logo } from "@/components/atoms/Logo";
 import { siteConfig } from "@/config/site";
-import { Icons } from "@/components/atoms/Icons";
 import { cn } from "@/lib/utils";
 
 export function MainNav() {
@@ -10,7 +10,7 @@ export function MainNav() {
   return (
     <nav className="flex items-center space-x-4 lg:space-x-6">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
+        <Logo className="h-6 w-6" />
         <span className="text-lg font-bold">{siteConfig.name}</span>
       </Link>
       <Link

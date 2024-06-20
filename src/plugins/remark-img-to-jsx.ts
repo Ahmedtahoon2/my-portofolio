@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 import fetch from "node-fetch";
 import sharp from "sharp";
 
-// Current directory path
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_RESIZE_DIMENSIONS = { width: 10, height: 10 };
 
@@ -21,8 +20,8 @@ type ImageNode = Parent & {
 interface BlurResult {
   width: number;
   height: number;
-  placeholder?: "blur" | "empty"; // Placeholder type (blur or empty)
-  blurDataURL?: string; // Base64 encoded blur data URL
+  placeholder?: "blur" | "empty";
+  blurDataURL?: string;
 }
 
 interface Config {
@@ -36,11 +35,8 @@ const log = (message: string, config: Config) => {
 };
 
 const handleError = (error: unknown, message: string) => {
-  if (error instanceof Error) {
-    console.error(`${message}: ${error.message}`);
-  } else {
-    console.error(`${message}: ${String(error)}`);
-  }
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  console.error(`${message}: ${errorMessage}`);
 };
 
 const getImageBuffer = async (
@@ -68,40 +64,31 @@ const getImageBuffer = async (
 };
 
 const getImageDimensions = async (
-  imageSrc: string, // Image node object
-  isExternal: boolean, // Whether image is external (HTTP)
+  imageSrc: string,
+  isExternal: boolean,
   config: Config = {}
 ): Promise<{ width: number; height: number } | null> => {
   try {
-    const imgBuffer = await getImageBuffer(imageSrc, isExternal, config); // Getting image buffer
+    const imgBuffer = await getImageBuffer(imageSrc, isExternal, config);
     log(`File exists: ${imageSrc}`, config);
-
-    const metadata = await sharp(imgBuffer).metadata(); // Retrieving image metadata
-
-    const dimensions = {
-      width: metadata.width || 0,
-      height: metadata.height || 0,
-    };
-
-    return dimensions;
+    const metadata = await sharp(imgBuffer).metadata();
+    return { width: metadata.width || 0, height: metadata.height || 0 };
   } catch (error) {
     handleError(error, `Error getting image dimensions: ${imageSrc}`);
-    return null; // Returning null if error occurs
+    return null;
   }
 };
 
 const getBlurData = async (
-  imageSrc: string, // Image source URL or path
-  isExternal: boolean, // Whether image is external (HTTP) - required parameter
+  imageSrc: string,
+  isExternal: boolean,
   defaultWidth: number = 0,
   defaultHeight: number = 0,
   config: Config = {}
 ): Promise<BlurResult | null> => {
   if (!imageSrc) return null;
-
   try {
-    const imgBuffer = await getImageBuffer(imageSrc, isExternal, config); // Getting image buffer
-
+    const imgBuffer = await getImageBuffer(imageSrc, isExternal, config);
     const image = sharp(imgBuffer);
     const metadata = await image.metadata();
 
@@ -124,17 +111,15 @@ const getBlurData = async (
       : "image/jpeg";
     const blurDataURL = blurBuffer.toString("base64");
 
-    const blurData: BlurResult = {
+    return {
       width,
       height,
       blurDataURL: `data:${mimeType};base64,${blurDataURL}`,
       placeholder: "blur",
     };
-
-    return blurData;
   } catch (error) {
     handleError(error, `Error getting blur data: ${imageSrc}`);
-    return null; // Returning null if error occurs
+    return null;
   }
 };
 

@@ -21,7 +21,7 @@ export default function Pre(
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setCopied(false), 2000);
+    const timer = setTimeout(() => setCopied(false), 1000);
     return () => clearTimeout(timer);
   }, [copied]);
 
@@ -43,11 +43,11 @@ export default function Pre(
               onClick={handleClickCopy}
               aria-label="Copy to Clipboard"
               className={cn(
-                "absolute right-0 top-0 m-2 cursor-pointer space-x-2 rounded-md border bg-gray-600/15 p-2 transition group-hover:flex focus:outline-none disabled:flex",
+                "absolute right-0 top-0 m-2 cursor-pointer space-x-2 rounded-md border bg-gray-600/15 p-[0.6rem] transition group-hover:flex focus:outline-none disabled:flex",
                 copied ? "border-green-400/80" : "border-transparent"
               )}
             >
-              <div className="pointer-events-none h-4 w-4">
+              <div className="pointer-events-none h-5 w-5">
                 {copied ? (
                   <Check
                     strokeLinecap="round"
