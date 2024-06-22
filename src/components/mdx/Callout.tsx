@@ -1,28 +1,60 @@
+import type { ReactElement, ReactNode } from "react";
+import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
 
-interface CalloutProps {
-  children?: ReactNode;
-  type?: "default" | "warning" | "danger";
-}
+const TypeToEmoji = {
+  default: "💡",
+  error: "🚫",
+  info: <Info />,
+  warning: "⚠️",
+} as const;
+
+type CalloutType = keyof typeof TypeToEmoji;
+
+const classes: Record<CalloutType, string> = {
+  default: cn(
+    "border-orange-100 bg-orange-50 text-orange-800 dark:border-orange-400/30 dark:bg-orange-400/20 dark:text-orange-300"
+  ),
+  error: cn(
+    "border-red-200 bg-red-100 text-red-900 dark:border-red-200/30 dark:bg-red-900/30 dark:text-red-200"
+  ),
+  info: cn(
+    "border-blue-200 bg-blue-100 text-blue-900 dark:border-blue-200/30 dark:bg-blue-900/30 dark:text-blue-200"
+  ),
+  warning: cn(
+    "border-yellow-100 bg-yellow-50 text-yellow-900 dark:border-yellow-200/30 dark:bg-yellow-700/30 dark:text-yellow-200"
+  ),
+};
+
+type CalloutProps = {
+  type?: CalloutType;
+  emoji?: string | ReactNode;
+  children: ReactNode;
+};
 
 export function Callout({
   children,
   type = "default",
-  ...props
-}: CalloutProps) {
+  emoji = TypeToEmoji[type],
+}: CalloutProps): ReactElement {
   return (
     <div
       className={cn(
-        "my-6 w-full items-start rounded-md border border-l-4 p-4 dark:max-w-none",
-        {
-          "border-red-500 bg-red-50 dark:prose": type === "danger",
-          "border-yellow-500 bg-yellow-50 dark:prose": type === "warning",
-        }
+        "my-6 flex overflow-x-auto rounded-lg border py-3 ltr:pr-4 rtl:pl-4",
+        "contrast-more:border-current contrast-more:dark:border-current",
+        classes[type]
       )}
-      {...props}
     >
-      <div>{children}</div>
+      <div
+        className="flex select-none items-center justify-center text-xl ltr:pl-3 ltr:pr-2 rtl:pl-2 rtl:pr-3"
+        style={{
+          fontFamily:
+            '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+        }}
+      >
+        {emoji}
+      </div>
+      <div className="w-full min-w-0 leading-7">{children}</div>
     </div>
   );
 }

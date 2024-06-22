@@ -59,14 +59,13 @@ function MyComponent() {
 ## ANSI Highlighting
 
 ```ansi
-vite v5.0.0 dev server running at:
-
-  > Local: http://localhost:3000/
-  > Network: use `--host` to expose
-
-  ready in 125ms.
-
-8:38:02 PM [vite] hmr update /src/App.jsx
+[0m [0;32m✓[0m [0;2msrc/[0mindex[0;2m.test.ts (1)[0m
+  [0;2m Test Files [0m [0;1;32m1 passed[0;98m (1)[0m
+  [0;2m      Tests [0m [0;1;32m1 passed[0;98m (1)[0m
+  [0;2m   Start at [0m 23:32:41
+  [0;2m   Duration [0m 11ms
+  [42;1;39;0m PASS [0;32m Waiting for file changes...[0m
+         [0;2mpress [0;1mh[0;2m to show help, press [0;1mq[0;2m to quit
 ```
 
 Inline ANSI: `> Local: http://localhost:3000/`
@@ -107,3 +106,16 @@ console.log(isEven(3)); // Should return false
 console.log(isEven(4)); // Should return true
 console.log(isEven(11)); // Should return "Number is not between 1 and 10."
 ```
+
+<FileTree>
+  <FileTree.Folder name="pages" defaultOpen>
+    <FileTree.File name="_meta.json" />
+    <FileTree.File name="contact.md" />
+    <FileTree.File name="index.mdx" />
+    <FileTree.Folder name="about" defaultOpen>
+      <FileTree.File name="_meta.json" active />
+      <FileTree.File name="legal.md" />
+      <FileTree.File name="index.mdx" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>

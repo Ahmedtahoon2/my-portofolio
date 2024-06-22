@@ -19,6 +19,7 @@ interface ImageNode extends Parent {
   attributes: (Literal & { name: string })[];
   parent?: Parent;
 }
+
 // Define the structure of the BlurResult
 interface BlurResult {
   width: number;
@@ -136,6 +137,7 @@ const getBlurData = async (
 // Main function to process each image node
 const processImage = async (imageNode: ImageNode, config: Config) => {
   const isExternal = EXTERNAL_URL_REGEX.test(imageNode.url);
+
   const dimensions = await getImageDimensions(
     imageNode.url,
     isExternal,
@@ -151,8 +153,10 @@ const processImage = async (imageNode: ImageNode, config: Config) => {
       config
     );
 
+    // Check if the image has blur effect
     const hasBlur = VALID_BLUR_EXT.some(ext => imageNode.url.endsWith(ext));
 
+    // Update image node properties to JSX structure
     imageNode.type = "mdxJsxFlowElement";
     imageNode.name = "Image";
     imageNode.attributes = [
@@ -162,6 +166,7 @@ const processImage = async (imageNode: ImageNode, config: Config) => {
       { type: "mdxJsxAttribute", name: "height", value: dimensions.height },
     ];
 
+    // Add blur data attributes if blur effect exists
     if (hasBlur && blurData?.blurDataURL) {
       imageNode.attributes.push(
         {
@@ -177,6 +182,7 @@ const processImage = async (imageNode: ImageNode, config: Config) => {
       );
     }
 
+    // Set parent node type to "div" if it exists
     if (imageNode.parent) {
       imageNode.parent.type = "div";
     }

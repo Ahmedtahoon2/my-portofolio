@@ -103,6 +103,21 @@ span.toc-title {
   @apply ml-4 cursor-pointer text-2xl;
 }
 
-p {
+ul.contains-task-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li.task-list-item::marker {
+  content: "";
+}
+
+article > p {
   @apply text-xl;
+}
+
+.TabsTrigger[data-state="active"] {
+  @apply border-b-[1px] border-solid border-blue-500 font-bold;
+  outline-offset: 2px;
+  outline: 2px solid transparent;
 }

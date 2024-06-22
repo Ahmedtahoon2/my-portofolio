@@ -4,14 +4,20 @@ import { visit } from "unist-util-visit";
 
 export type RemarkInternalLinkToJsxOptions = {
   excludeExternalLinks?: boolean;
+  log?: boolean;
 };
 
 export const remarkInternalLinkToJsx: Plugin<
   [RemarkInternalLinkToJsxOptions],
   Root
-> = ({ excludeExternalLinks } = {}) => {
-  return (tree, _file, done) => {
+> = (
+  { excludeExternalLinks, log } = { excludeExternalLinks: true, log: false }
+) => {
+  return tree => {
     visit(tree, "link", node => {
+      if (log) {
+        console.log(`Processing link: ${node.url}`);
+      }
       if (!(excludeExternalLinks && /^https?:\/\//.test(node.url))) {
         // Convert the internal link to JSX Link component
         const linkNode = {
@@ -25,6 +31,5 @@ export const remarkInternalLinkToJsx: Plugin<
         Object.assign(node, linkNode);
       }
     });
-    done();
   };
 };

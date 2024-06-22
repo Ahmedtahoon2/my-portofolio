@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { ComponentProps, useEffect, useRef, useState } from "react";
 import { Check, Files } from "lucide-react";
 import {
   Tooltip,
@@ -11,12 +11,7 @@ import {
 import { copyToClipboard } from "@/lib/copyToClipboard";
 import { cn } from "@/lib/utils";
 
-export default function Pre(
-  props: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLPreElement>,
-    HTMLPreElement
-  >
-) {
+export default function Pre(props: ComponentProps<"pre">) {
   const preRef = useRef<HTMLPreElement>(null);
   const [copied, setCopied] = useState(false);
 

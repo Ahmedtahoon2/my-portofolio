@@ -51,6 +51,12 @@
     -webkit-font-smoothing: auto;
   }
 
+  code {
+    overflow-x: auto;
+    overflow-wrap: break-word;
+    white-space: pre;
+  }
+
   button {
     @apply cursor-default font-manrope;
   }

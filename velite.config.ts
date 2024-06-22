@@ -3,6 +3,7 @@ import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import {
   remarkImgToJsx,
   remarkInternalLinkToJsx,
+  remarkCustomHeadingId,
   rehypeTocPlugin,
 } from "@/plugins/mdx";
 import calcReadingTime from "@/lib/calcReadingTime";
@@ -55,21 +56,7 @@ export default defineConfig({
   mdx: {
     rehypePlugins: [
       rehypeSlug,
-      [
-        rehypePrettyCode,
-        {
-          theme: "dark-plus",
-          tokensMap: {
-            var: "variable.other",
-            fn: "entity.name.function",
-            cls: "entity.name.class",
-            str: "string",
-            num: "constant.numeric",
-            key: "keyword",
-            prm: "variable.parameter",
-          },
-        },
-      ],
+      [rehypePrettyCode, { theme: "dark-plus" }],
       [
         rehypeAutolinkHeadings,
         {
@@ -91,6 +78,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkImgToJsx,
       remarkInternalLinkToJsx,
+      remarkCustomHeadingId,
       remarkGfm,
       smartypants,
     ],
