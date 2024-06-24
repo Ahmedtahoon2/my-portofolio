@@ -7,11 +7,7 @@ interface TabsProps {
   defaultIndex?: number;
 }
 
-export const Tabs: React.FC<TabsProps> = ({
-  items,
-  children,
-  defaultIndex = 0,
-}) => {
+const Tabs: React.FC<TabsProps> = ({ items, children, defaultIndex = 0 }) => {
   const defaultValue = items[defaultIndex];
 
   return (
@@ -38,3 +34,5 @@ export const Tabs: React.FC<TabsProps> = ({
     </RadixTabs.Root>
   );
 };
+
+export default Tabs;

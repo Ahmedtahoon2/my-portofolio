@@ -21,16 +21,20 @@ export default function PostItem({
   tags,
 }: PostItemProps) {
   return (
-    <article className="flex flex-col gap-2 border-b border-border py-3">
+    <article className="flex flex-col border-b border-border py-3">
       <div>
-        <h2 className="text-2xl font-bold">
-          <Link href={"/" + slug}>{title}</Link>
+        <h2 className="my-2 text-2xl font-bold">
+          <Link href={"/" + slug} aria-label={title}>
+            {title}
+          </Link>
         </h2>
       </div>
       <div className="flex gap-2">
         {tags?.map(tag => <Tag tag={tag} key={tag} />)}
       </div>
-      <div className="max-w-none text-muted-foreground">{description}</div>
+      <p className="mt-2 line-clamp-2 max-w-none text-lg leading-normal text-muted-foreground">
+        {description}
+      </p>
       <div className="flex items-center justify-between">
         <dl>
           <dt className="sr-only">Published On</dt>
@@ -41,6 +45,7 @@ export default function PostItem({
         </dl>
         <Link
           href={"/" + slug}
+          aria-label={title}
           className={cn(buttonVariants({ variant: "link" }), "gap-1 py-0")}
         >
           Read more <MoveRight className="pt-1" />

@@ -1,3 +1,4 @@
+/* rehype-pretty-code figure styles */
 [data-rehype-pretty-code-figure] pre {
   @apply px-0;
 }
@@ -24,7 +25,7 @@
 
 [data-rehype-pretty-code-figure] [data-highlighted-line] {
   background: rgba(200, 200, 255, 0.1);
-  @apply border-l-blue-400;
+  @apply !border-l-blue-400;
 }
 
 [data-rehype-pretty-code-figure] [data-highlighted-chars] {
@@ -48,6 +49,49 @@
   @apply mt-0 rounded-t-none;
 }
 
+/* rehype-pretty-code fragment styles */
+[data-rehype-pretty-code-fragment] code {
+  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-black;
+  counter-reset: line;
+  box-decoration-break: clone;
+}
+
+[data-rehype-pretty-code-fragment] .line {
+  @apply px-4 py-1;
+}
+
+[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: gray;
+}
+
+[data-rehype-pretty-code-fragment] .line--highlighted {
+  @apply bg-slate-300 bg-opacity-10;
+}
+
+[data-rehype-pretty-code-fragment] .line-highlighted span {
+  @apply relative;
+}
+
+[data-rehype-pretty-code-fragment] .word--highlighted {
+  @apply rounded-md bg-slate-300 bg-opacity-10 p-1;
+}
+
+/* rehype-pretty-code title styles */
+[data-rehype-pretty-code-title] {
+  @apply mt-4 px-4 py-2 text-sm font-medium;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  @apply mt-0;
+}
+
+/* Table of Contents (TOC) styles */
 details[data-type="toc"] {
   @apply relative mb-4 select-none rounded-md border p-3 px-4;
   border-color: var(--tw-prose-hr);
@@ -77,6 +121,7 @@ details summary::marker {
   @apply hidden;
 }
 
+/* Subheading anchor styles */
 .subheading-anchor {
   @apply rounded no-underline opacity-0 transition-opacity duration-150 ease-out;
 }
@@ -99,23 +144,23 @@ html.dark .subheading-anchor:after {
   @apply ml-1;
 }
 
+/* TOC title styles */
 span.toc-title {
   @apply ml-4 cursor-pointer text-2xl;
 }
 
+/* Task list styles */
 ul.contains-task-list {
   list-style-type: none;
   padding-left: 0;
 }
 
-li.task-list-item::marker {
-  content: "";
+/* Prose article paragraph styles */
+article.prose > p {
+  @apply text-xl leading-7 [&:not(:first-child)]:mt-6;
 }
 
-article > p {
-  @apply text-xl;
-}
-
+/* Active tab trigger styles */
 .TabsTrigger[data-state="active"] {
   @apply border-b-[1px] border-solid border-blue-500 font-bold;
   outline-offset: 2px;

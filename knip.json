@@ -37,6 +37,6 @@
   "postcss": {
     "config": ["postcss.config.{mjs,js}"]
   },
-  "ignore": ["src/components/ui/*", "src/plugins/*", "velite.config.ts"],
+  "ignore": ["src/components/ui/*", "src/plugins/mdx/*", "velite.config.ts"],
   "ignoreDependencies": ["husky"]
 }

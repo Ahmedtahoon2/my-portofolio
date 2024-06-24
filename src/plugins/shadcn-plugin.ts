@@ -1,4 +1,5 @@
 import plugin from "tailwindcss/plugin";
+
 // import { fontFamily } from "tailwindcss/defaultTheme";
 
 const shadcnPlugin = plugin(
@@ -27,19 +28,19 @@ const shadcnPlugin = plugin(
         "--radius": "0.5rem",
       },
       ".dark": {
-        "--background": "0°, 0%, 13%",
+        "--background": "0 0% 7.1%",
         "--foreground": "210 20% 98%",
-        "--card": "224 71.4% 4.1%",
+        "--card": "0 0% 11%",
         "--card-foreground": "210 20% 98%",
-        "--popover": "224 71.4% 4.1%",
+        "--popover": "0 0% 8%",
         "--popover-foreground": "210 20% 98%",
         "--primary": "210 20% 98%",
         "--primary-foreground": "220.9 39.3% 11%",
-        "--secondary": "215 27.9% 16.9%",
+        "--secondary": "215 15% 17%",
         "--secondary-foreground": "210 20% 98%",
         "--muted": "215 27.9% 16.9%",
         "--muted-foreground": "217.9 10.6% 64.9%",
-        "--accent": "215 27.9% 16.9%",
+        "--accent": "0 0% 13%",
         "--accent-foreground": "210 20% 98%",
         "--destructive": "0 62.8% 30.6%",
         "--destructive-foreground": "210 20% 98%",

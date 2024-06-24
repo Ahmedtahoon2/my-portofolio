@@ -1,7 +1,6 @@
-// FileTree.tsx
-import cn from "clsx";
 import { createContext, memo, useCallback, useContext, useState } from "react";
 import type { ReactElement, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 const ctx = createContext(0);
 
@@ -122,4 +121,6 @@ const File = memo<FileProps>(({ label, name, active }) => (
 ));
 File.displayName = "File";
 
-export const FileTree = Object.assign(Tree, { Folder, File });
+const FileTree = Object.assign(Tree, { Folder, File });
+
+export default FileTree;

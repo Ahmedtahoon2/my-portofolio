@@ -1,4 +1,4 @@
-export { remarkImgToJsx } from "./remark-img-to-jsx";
+export { remarkImgToJsx, type RemarkImgToJsxOptions } from "./remark-image";
 export {
   remarkInternalLinkToJsx,
   type RemarkInternalLinkToJsxOptions,

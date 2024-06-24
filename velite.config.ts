@@ -1,10 +1,10 @@
 import { defineConfig, defineCollection, s } from "velite";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import {
+  rehypeTocPlugin,
+  remarkCustomHeadingId,
   remarkImgToJsx,
   remarkInternalLinkToJsx,
-  remarkCustomHeadingId,
-  rehypeTocPlugin,
 } from "@/plugins/mdx";
 import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";

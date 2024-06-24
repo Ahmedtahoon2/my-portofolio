@@ -1,3 +1,5 @@
+"use client";
+
 import useKnowTheme from "@/hooks/useKnowTheme";
 
 export function Logo(props: React.HTMLAttributes<SVGElement>) {

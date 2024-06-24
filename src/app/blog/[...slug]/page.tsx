@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { posts } from "@site/content";
+import { formatDate } from "@/lib/formatDate";
 import { siteConfig } from "@/config/site";
 import { MDXContent } from "@/components/molecules/MdxComponent";
 import { Tag } from "@/components/atoms/Tag";
@@ -79,7 +80,15 @@ export default async function PostPage({ params }: PostPageProps) {
 
     return (
       <article className="container prose mx-auto max-w-3xl py-6 dark:prose-invert">
-        <h1 className="mb-4">{post.title}</h1>
+        <time
+          dateTime={post.date}
+          className="block text-sm text-muted-foreground"
+        >
+          Published on {formatDate(post.date)}
+        </time>
+        <h1 className="font-heading mb-4 mt-2 inline-block text-4xl leading-tight lg:text-5xl">
+          {post.title}
+        </h1>
         <div className="mb-4 flex gap-2">
           {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
         </div>

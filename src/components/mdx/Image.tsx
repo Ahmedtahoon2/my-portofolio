@@ -36,7 +36,7 @@ const Image: React.FC<CustomImageProps> = ({
   const figureClasses = cn("m-0 flex flex-col", breakout ? "gap-4" : "gap-2");
 
   const imageClasses = cn(
-    "h-auto w-full",
+    "h-auto max-w-full rounded-md border transition-colors object-cover",
     breakout && "bg-tertiary",
     (rounded || breakout) &&
       "bg-tertiary overflow-hidden rounded-md md:rounded-lg"
@@ -59,6 +59,7 @@ const Image: React.FC<CustomImageProps> = ({
           className={imageClasses}
           placeholder={blurDataURL ? "blur" : "empty"}
           blurDataURL={blurDataURL}
+          referrerPolicy="strict-origin-when-cross-origin"
           {...rest}
         />
         {caption && (

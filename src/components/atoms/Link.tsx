@@ -1,6 +1,6 @@
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import clsx from "clsx";
 import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 type LinkProps = {
   children: ReactNode;
@@ -14,7 +14,7 @@ export default function Link(props: LinkProps) {
   return (
     <NextLink
       {...rest}
-      className={clsx(
+      className={cn(
         "underline-offset-4",
         (isExternal || underline) && "underline",
         props.className

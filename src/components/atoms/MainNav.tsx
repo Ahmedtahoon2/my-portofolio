@@ -1,17 +1,16 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/atoms/Logo";
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 export function MainNav() {
   const pathname = usePathname();
   return (
-    <nav className="flex items-center space-x-4 lg:space-x-6">
-      <Link href="/" className="mr-6 flex items-center space-x-2">
+    <nav className="flex items-center space-x-6 lg:space-x-8">
+      <Link href="/" className="flex items-center space-x-2 lg:ml-7">
         <Logo className="h-6 w-6" />
-        <span className="text-lg font-bold">{siteConfig.name}</span>
       </Link>
       <Link
         href="/blog"
