@@ -4,7 +4,7 @@ export const generateResponsiveSources = (
   url: string,
   dimensions: { width: number; height: number }
 ) => {
-  const sizes = [320, 480, 640, 960, 1280, 1600];
+  const sizes = [480, 960, 1280]; // Reduced sizes to a smaller set
   const pixelRatio = 2; // for high-density displays
   const srcSet = sizes
     .map(size => {

@@ -1,10 +1,15 @@
-import { resolve } from "node:path";
+import pkg from "lru_map";
+import { dirname, resolve } from "node:path";
 import { readFile } from "node:fs/promises";
-import { __dirname, ERROR_PREFIX } from "./defaults";
+import { fileURLToPath } from "node:url";
+import { ERROR_PREFIX } from "./defaults";
 import { handleError, log } from "./utils";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // Temporary storage for converted images
-const imageCache = new Map<string, Buffer>();
+const { LRUMap } = pkg;
+const imageCache = new LRUMap<string, Buffer>(100);
 
 // Function to get the image buffer from cache or fetch it
 export const getImageBuffer = async (
@@ -13,6 +18,15 @@ export const getImageBuffer = async (
   showLogs: boolean
 ): Promise<Buffer> => {
   try {
+    const cacheKey = `${isExternal ? "external" : "internal"}-${imageSrc}`;
+
+    // Check cache first
+    if (imageCache.has(cacheKey)) {
+      log(`Retrieved image from cache: ${cacheKey}`, showLogs);
+      return imageCache.get(cacheKey)!;
+    }
+
+    let fileBuffer: Buffer;
     if (isExternal) {
       const response = await fetch(imageSrc);
       if (!response.ok) {
@@ -20,21 +34,15 @@ export const getImageBuffer = async (
       }
       log(`Fetched external image: ${imageSrc}`, showLogs);
       const arrayBuffer = await response.arrayBuffer();
-      return Buffer.from(arrayBuffer);
+      fileBuffer = Buffer.from(arrayBuffer);
     } else {
       const filePath = resolve(__dirname, `../public/${imageSrc}`);
       log(`Reading internal image: ${filePath}`, showLogs);
-
-      // Check cache first
-      if (imageCache.has(filePath)) {
-        log(`Retrieved image from cache: ${filePath}`, showLogs);
-        return imageCache.get(filePath)!;
-      }
-
-      const fileBuffer = await readFile(filePath);
-      imageCache.set(filePath, fileBuffer); // Store in cache
-      return fileBuffer;
+      fileBuffer = await readFile(filePath);
     }
+
+    imageCache.set(cacheKey, fileBuffer); // Store in cache
+    return fileBuffer;
   } catch (error) {
     handleError(error, `${ERROR_PREFIX} fetching image buffer`);
     throw error;

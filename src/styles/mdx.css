@@ -160,6 +160,10 @@ article.prose > p {
   @apply text-xl leading-7 [&:not(:first-child)]:mt-6;
 }
 
+article.prose > p code {
+  @apply relative top-[-2px] inline align-middle;
+}
+
 /* Active tab trigger styles */
 .TabsTrigger[data-state="active"] {
   @apply border-b-[1px] border-solid border-blue-500 font-bold;

@@ -5,21 +5,18 @@ import {
   RESIZE_DIMENSIONS,
 } from "./defaults";
 import { handleError } from "./utils";
-import { BlurResult, Config } from "./types";
-import { getWebPBuffer } from "./getWebPBuffer";
+import { BlurResult } from "./types";
 
 // Function to get the blur data for the image
 export const getBlurData = async (
+  imgBuffer: Buffer,
   imageSrc: string,
-  isExternal: boolean,
   defaultWidth: number = 0,
-  defaultHeight: number = 0,
-  config: Config
+  defaultHeight: number = 0
 ): Promise<BlurResult | null> => {
   if (!imageSrc) return null;
   try {
-    const webPBuffer = await getWebPBuffer(imageSrc, isExternal, config);
-    const image = sharp(webPBuffer);
+    const image = sharp(imgBuffer);
     const metadata = await image.metadata();
 
     const width =

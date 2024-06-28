@@ -1,5 +1,5 @@
 import { convertToWebP } from "./convertToWebP";
-import { getImageBuffer } from "./imageBuffer";
+import { getImageBuffer } from "./getImageBuffer";
 import { Config } from "./types";
 
 export const getWebPBuffer = async (

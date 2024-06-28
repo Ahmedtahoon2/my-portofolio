@@ -1,6 +1,7 @@
 import { ERROR_PREFIX, EXTERNAL_URL_REGEX, VALID_BLUR_EXT } from "./defaults";
 import { enhanceSecurity } from "./enhanceSecurity";
 import { generateResponsiveSources } from "./generateSrcSet";
+import { getWebPBuffer } from "./getWebPBuffer";
 import { getBlurData } from "./imageBlur";
 import { getImageDimensions } from "./imageDimensions";
 import { Config, ImageNode } from "./types";
@@ -13,64 +14,71 @@ export const imageProcess = async (imageNode: ImageNode, config: Config) => {
     await enhanceSecurity(imageNode.url, config.showLogs);
   }
 
-  const dimensions = await getImageDimensions(
-    imageNode.url,
-    isExternal,
-    config
-  );
+  try {
+    const webPBuffer = await getWebPBuffer(imageNode.url, isExternal, config);
 
-  if (dimensions) {
-    const blurData = await getBlurData(
+    const dimensions = await getImageDimensions(
+      webPBuffer,
       imageNode.url,
-      isExternal,
-      dimensions.width,
-      dimensions.height,
       config
     );
 
-    // Check if the image has blur effect
-    const hasBlur = VALID_BLUR_EXT.some(ext => imageNode.url.endsWith(ext));
+    if (dimensions) {
+      const blurData = await getBlurData(
+        webPBuffer,
+        imageNode.url,
+        dimensions.width,
+        dimensions.height
+      );
 
-    // Generate responsive sources
-    const srcSet = generateResponsiveSources(imageNode.url, dimensions);
+      // Check if the image has blur effect
+      const hasBlur = VALID_BLUR_EXT.some(ext => imageNode.url.endsWith(ext));
 
-    // Update image node properties to JSX structure
-    imageNode.type = "mdxJsxFlowElement";
-    imageNode.name = "Image";
-    imageNode.attributes = [
-      { type: "mdxJsxAttribute", name: "alt", value: imageNode.alt },
-      { type: "mdxJsxAttribute", name: "src", value: imageNode.url },
-      { type: "mdxJsxAttribute", name: "width", value: dimensions.width },
-      { type: "mdxJsxAttribute", name: "height", value: dimensions.height },
-      { type: "mdxJsxAttribute", name: "srcSet", value: srcSet },
-      {
-        type: "mdxJsxAttribute",
-        name: "sizes",
-        value: "(max-width: 1600px) 100vw, 1600px",
-      },
-    ];
+      // Generate responsive sources
+      const srcSet = generateResponsiveSources(imageNode.url, dimensions);
 
-    // Add blur data attributes if blur effect exists
-    if (hasBlur && blurData?.blurDataURL) {
-      imageNode.attributes.push(
+      // Update image node properties to JSX structure
+      imageNode.type = "mdxJsxFlowElement";
+      imageNode.name = "Image";
+      imageNode.attributes = [
+        { type: "mdxJsxAttribute", name: "alt", value: imageNode.alt },
+        { type: "mdxJsxAttribute", name: "src", value: imageNode.url },
+        { type: "mdxJsxAttribute", name: "width", value: dimensions.width },
+        { type: "mdxJsxAttribute", name: "height", value: dimensions.height },
+        { type: "mdxJsxAttribute", name: "srcSet", value: srcSet },
         {
           type: "mdxJsxAttribute",
-          name: "placeholder",
-          value: blurData.placeholder,
+          name: "sizes",
+          value: "(max-width: 1600px) 100vw, 1600px",
         },
-        {
-          type: "mdxJsxAttribute",
-          name: "blurDataURL",
-          value: blurData.blurDataURL,
-        }
+      ];
+
+      // Add blur data attributes if blur effect exists
+      if (hasBlur && blurData?.blurDataURL) {
+        imageNode.attributes.push(
+          {
+            type: "mdxJsxAttribute",
+            name: "placeholder",
+            value: blurData.placeholder,
+          },
+          {
+            type: "mdxJsxAttribute",
+            name: "blurDataURL",
+            value: blurData.blurDataURL,
+          }
+        );
+      }
+
+      // Set parent node type to "div" if it exists
+      if (imageNode.parent) {
+        imageNode.parent.type = "div";
+      }
+    } else {
+      console.error(
+        `${ERROR_PREFIX} getting image dimensions: ${imageNode.url}`
       );
     }
-
-    // Set parent node type to "div" if it exists
-    if (imageNode.parent) {
-      imageNode.parent.type = "div";
-    }
-  } else {
-    console.error(`${ERROR_PREFIX} getting image dimensions: ${imageNode.url}`);
+  } catch (error) {
+    console.error(`${ERROR_PREFIX} processing image: ${imageNode.url}`, error);
   }
 };
