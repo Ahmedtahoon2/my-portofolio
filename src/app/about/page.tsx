@@ -14,18 +14,18 @@ export default function page() {
       <hr className="my-8" />
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
         <div className="flex min-w-48 max-w-48 flex-col gap-2">
-          <Avatar className="h-48 w-48">
+          <Avatar className="size-48">
             <AvatarImage src="/avatar.png" alt={siteConfig.author} />
             <AvatarFallback>JC</AvatarFallback>
           </Avatar>
           <h2 className="break-words text-center text-2xl font-bold">
             {siteConfig.author}
           </h2>
-          <p className="break-words text-center text-muted-foreground">
+          <p className="text-muted-foreground break-words text-center">
             Software Developer
           </p>
         </div>
-        <p className="py-4 text-lg text-muted-foreground">
+        <p className="text-muted-foreground py-4 text-lg">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut

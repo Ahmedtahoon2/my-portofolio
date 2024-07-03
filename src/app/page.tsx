@@ -13,7 +13,7 @@ export default function Home() {
           Hello, <span className="text-gradient">I&apos;m Ahmed</span>
         </h1>
         <div className="flex text-balance text-3xl">
-          <div className="mr-2 flex flex-1 items-center md:w-[15rem] lg:w-[20rem]">
+          <div className="mr-2 flex flex-1 items-center md:w-60 lg:w-80">
             <div className="h-[2px] w-full bg-gray-700 dark:bg-gray-200"></div>
           </div>
           <SparklesText

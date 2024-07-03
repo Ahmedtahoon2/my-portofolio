@@ -36,7 +36,7 @@ const Image: React.FC<CustomImageProps> = ({
   const figureClasses = cn("m-0 flex flex-col", breakout ? "gap-4" : "gap-2");
 
   const imageClasses = cn(
-    "h-auto max-w-full rounded-md border transition-colors object-cover",
+    "h-auto max-w-full rounded-md border object-cover transition-colors",
     breakout && "bg-tertiary",
     (rounded || breakout) &&
       "bg-tertiary overflow-hidden rounded-md md:rounded-lg"

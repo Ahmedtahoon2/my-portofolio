@@ -25,9 +25,6 @@
   "eslint": {
     "config": [".eslintrc"]
   },
-  "lint-staged": {
-    "config": [".lintstagedrc.{js,mjs,cjs}"]
-  },
   "typescript": {
     "config": ["tsconfig.json"]
   },

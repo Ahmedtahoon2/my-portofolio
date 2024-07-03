@@ -11,9 +11,11 @@ export const remarkCustomHeadingId: Plugin<[], Root> =
     visit(tree, "heading", node => {
       const lastChild = node.children.at(-1);
 
-      if (!lastChild || lastChild.type !== "text") return;
+      // Check if the last child is a text node
+      if (lastChild?.type !== "text") return;
 
       const headingText = lastChild.value;
+      // Match the heading text for a custom ID pattern [#custom-id]
       const match = headingText.match(/\s*\[#([^\]]+)]\s*$/);
 
       if (!match) return;
@@ -23,6 +25,7 @@ export const remarkCustomHeadingId: Plugin<[], Root> =
       const headingProps: HProperties = (node.data.hProperties ??= {});
       headingProps.id = id;
 
+      // Remove the matched text from the heading text
       lastChild.value = headingText.slice(
         0,
         headingText.length - matchedText.length

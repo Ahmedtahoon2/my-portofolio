@@ -1,5 +1,9 @@
 import type { MDXComponents } from "mdx/types";
 import { Button } from "@/components/ui/button";
+import { Table } from "./Table";
+import { Td } from "./Td";
+import { Th } from "./Th";
+import { Tr } from "./Tr";
 import Link from "next/link";
 import Callout from "./Callout";
 import Code from "./Code";
@@ -19,4 +23,8 @@ export const components: MDXComponents = {
   pre: Pre,
   code: Code,
   blockquote: Blockquote,
+  table: Table,
+  td: Td,
+  th: Th,
+  tr: Tr,
 };

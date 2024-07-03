@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { posts } from "@site/content";
 import { formatDate } from "@/lib/formatDate";
 import { siteConfig } from "@/config/site";
+import ScrollButton from "@/components/atoms/scrollButton";
 import { MDXContent } from "@/components/molecules/MdxComponent";
 import { Tag } from "@/components/atoms/Tag";
 import "@/styles/mdx.css";
@@ -79,29 +80,32 @@ export default async function PostPage({ params }: PostPageProps) {
     }
 
     return (
-      <article className="container prose mx-auto max-w-3xl py-6 dark:prose-invert">
-        <time
-          dateTime={post.date}
-          className="block text-sm text-muted-foreground"
-        >
-          Published on {formatDate(post.date)}
-        </time>
-        <h1 className="font-heading mb-4 mt-2 inline-block text-4xl leading-tight lg:text-5xl">
-          {post.title}
-        </h1>
-        <div className="mb-4 flex gap-2">
-          {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
-        </div>
-        {post.description ? (
-          <p className="mt-0 text-xl text-muted-foreground">
-            {post.description}
+      <article className="prose dark:prose-invert container mx-auto max-w-3xl py-6">
+        <section>
+          <time
+            dateTime={post.date}
+            className="text-muted-foreground block text-sm"
+          >
+            Published on {formatDate(post.date)}
+          </time>
+          <h1 className="font-heading mb-4 mt-2 inline-block text-4xl leading-tight lg:text-5xl">
+            {post.title}
+          </h1>
+          <div className="mb-4 flex gap-2">
+            {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
+          </div>
+          {post.description ? (
+            <p className="text-muted-foreground mt-0 text-xl">
+              {post.description}
+            </p>
+          ) : null}
+          <p className="text-muted-foreground mt-0 text-xl">
+            Reading time: {post.readingTime.text}
           </p>
-        ) : null}
-        <p className="mt-0 text-xl text-muted-foreground">
-          Reading time: {post.readingTime.text}
-        </p>
+        </section>
         <hr className="my-4" />
         <MDXContent code={post.body} />
+        <ScrollButton />
       </article>
     );
   } catch (error) {

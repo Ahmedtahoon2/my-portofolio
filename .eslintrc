@@ -1,14 +1,18 @@
 {
+  "$schema": "https://json.schemastore.org/eslintrc",
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
+    "tailwindcss": {
+      "callees": ["cn"],
+      "config": "tailwind.config.js"
+    },
+    "next": {
+      "rootDir": true
+    },
     "react": {
       "version": "detect"
     }
@@ -18,33 +22,37 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "prettier"
-  ],
-  "plugins": ["react-hooks", "@typescript-eslint", "prettier"],
-  "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off"
-  },
   "overrides": [
     {
-      "files": ["**/*.md?(x)"],
+      "files": ["*.md", "*.mdx"],
       "extends": "plugin:mdx/recommended",
       "plugins": ["mdx"],
       "rules": {
+        "no-unused-expressions": "off",
         "react/jsx-no-undef": "off",
         "react/no-unescaped-entities": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      },
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:tailwindcss/recommended"
+      ],
+      "plugins": ["@typescript-eslint", "tailwindcss"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "tailwindcss/no-custom-classname": "off",
+        "tailwindcss/classnames-order": "error"
       }
     }
   ]

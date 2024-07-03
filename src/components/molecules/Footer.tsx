@@ -9,18 +9,18 @@ export default function Footer() {
         <div className="mb-3 flex space-x-4">
           <a target="_blank" rel="noreferrer" href="mailto:hello@example.com">
             <span className="sr-only">Mail</span>
-            <Mail className="h-6 w-6" />
+            <Mail className="size-6" />
           </a>
           <a target="_blank" rel="noreferrer" href={siteConfig.links.twitter}>
             <span className="sr-only">Twitter</span>
-            <Icons.twitter className="h-6 w-6" />
+            <Icons.twitter className="size-6" />
           </a>
           <a target="_blank" rel="noreferrer" href={siteConfig.links.github}>
             <span className="sr-only">GitHub</span>
-            <Icons.gitHub className="h-6 w-6" />
+            <Icons.gitHub className="size-6" />
           </a>
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">
+        <div className="text-muted-foreground mb-2 flex space-x-2 text-sm">
           <a target="_blank" rel="noreferrer" href={siteConfig.url}>
             {siteConfig.author}
           </a>

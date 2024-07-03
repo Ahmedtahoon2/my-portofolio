@@ -1,6 +1,5 @@
 import plugin from "tailwindcss/plugin";
-
-// import { fontFamily } from "tailwindcss/defaultTheme";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const shadcnPlugin = plugin(
   function ({ addBase }) {
@@ -62,8 +61,8 @@ const shadcnPlugin = plugin(
       },
       extend: {
         fontFamily: {
-          inter: "var(--font-inter)",
-          manrope: "var(--font-manrope)",
+          inter: ["var(--font-inter)", ...fontFamily.sans],
+          manrope: ["var(--font-manrope)", ...fontFamily.sans],
         },
         colors: {
           border: "hsl(var(--border))",

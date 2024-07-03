@@ -1,11 +1,24 @@
-const calcReadingTime = (
-  text: string
-): { text: string; minutes: number; words: number } => {
-  // Calculate words count
-  const words = text.trim().split(/\s+/).length;
+export interface ReadingOptions {
+  wordsPerMinute?: number;
+}
 
-  // Words per minute based on average reading speed
-  const wordsPerMinute = 200;
+const calcReadingTime = (
+  text: string,
+  options: ReadingOptions = {}
+): { text: string; minutes: number; words: number } => {
+  const { wordsPerMinute = 200 } = options;
+
+  // Remove HTML tags (if the text was converted from Markdown)
+  const plainText = text
+    // Remove <code> elements
+    .replace(/<code>.*?<\/code>/gs, "")
+    // Remove code blocks in Markdown (e.g., ```js ... ```)
+    .replace(/```[^`]+```/gs, "")
+    // Remove other HTML tags
+    .replace(/<[^>]*>/g, "");
+
+  // Calculate word count
+  const words = plainText.trim().split(/\s+/).length;
 
   // Calculate reading time in minutes
   const minutes = Math.ceil(words / wordsPerMinute);
