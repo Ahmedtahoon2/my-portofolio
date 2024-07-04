@@ -1,10 +1,12 @@
 /* rehype-pretty-code figure styles */
 [data-rehype-pretty-code-figure] pre {
   @apply px-0;
+  background-color: rgb(30, 30, 30);
+  color: rgb(212, 212, 212);
 }
 
 [data-rehype-pretty-code-figure] code {
-  @apply border-0 p-0 text-sm !leading-loose md:text-base;
+  @apply border-0 text-sm leading-loose max-sm:pb-2;
 }
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] {
@@ -18,7 +20,7 @@
 }
 
 [data-rehype-pretty-code-figure]
-  code:not([data-language="plaintext"])
+  code:not([data-language="plaintext"], [data-language="ansi"])
   > [data-line] {
   @apply border-l-2 border-l-transparent px-3;
 }
@@ -162,6 +164,10 @@ article.prose > p {
 
 article.prose > p code {
   @apply relative top-[-2px] inline align-middle;
+}
+
+em {
+  @apply italic;
 }
 
 /* Active tab trigger styles */

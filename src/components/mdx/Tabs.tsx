@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, FC, memo } from "react";
 import * as RadixTabs from "@radix-ui/react-tabs";
 
 interface TabsProps {
@@ -7,7 +7,11 @@ interface TabsProps {
   defaultIndex?: number;
 }
 
-const Tabs: React.FC<TabsProps> = ({ items, children, defaultIndex = 0 }) => {
+const TabsComponent: FC<TabsProps> = ({
+  items,
+  children,
+  defaultIndex = 0,
+}) => {
   const defaultValue = items[defaultIndex];
 
   return (
@@ -18,9 +22,10 @@ const Tabs: React.FC<TabsProps> = ({ items, children, defaultIndex = 0 }) => {
       <RadixTabs.List className="flex border-b border-gray-800">
         {items.map(item => (
           <RadixTabs.Trigger
-            key={item} // Ensure a stable key using item (assuming items are unique)
+            key={item}
             value={item}
             className="TabsTrigger cursor-pointer border-none bg-none px-4 py-2 text-lg transition-colors"
+            aria-label={`Tab for ${item}`}
           >
             {item}
           </RadixTabs.Trigger>
@@ -34,5 +39,18 @@ const Tabs: React.FC<TabsProps> = ({ items, children, defaultIndex = 0 }) => {
     </RadixTabs.Root>
   );
 };
+
+TabsComponent.displayName = "Tabs";
+
+const Tab: FC<{ children: ReactNode }> = ({ children }) => {
+  return <div className="rounded">{children}</div>;
+};
+
+Tab.displayName = "Tabs.Tab";
+
+const Tabs = memo(TabsComponent) as unknown as FC<TabsProps> & {
+  Tab: FC<{ children: ReactNode }>;
+};
+Tabs.Tab = Tab;
 
 export default Tabs;

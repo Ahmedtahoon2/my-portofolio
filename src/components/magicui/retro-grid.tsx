@@ -4,7 +4,7 @@ export default function RetroGrid({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none absolute h-full w-full overflow-hidden opacity-50 [perspective:200px]",
+        "pointer-events-none absolute size-full overflow-hidden opacity-50 [perspective:200px]",
         className
       )}
     >
@@ -26,7 +26,7 @@ export default function RetroGrid({ className }: { className?: string }) {
       </div>
 
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent to-90%" />
+      <div className="from-background absolute inset-0 bg-gradient-to-t to-transparent to-90%" />
     </div>
   );
 }

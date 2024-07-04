@@ -3,7 +3,7 @@ import { handleError, log } from "./utils";
 
 export const enhanceSecurity = async (
   imageUrl: string,
-  showLogs: boolean
+  showLogs: boolean | undefined
 ): Promise<void> => {
   try {
     const response = await fetch(imageUrl, { method: "HEAD" });

@@ -16,7 +16,7 @@ export function MobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" className="w-10 cursor-pointer px-0 sm:hidden">
-          <Menu className="h-5 w-5" />
+          <Menu className="size-5" />
           <span className="sr-only">Toggle Theme</span>
         </Button>
       </SheetTrigger>
@@ -26,7 +26,7 @@ export function MobileNav() {
           href="/"
           className="mb-3 flex items-center"
         >
-          <Logo className="mr-2 h-4 w-4" />
+          <Logo className="mr-2 size-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="mt-3 flex flex-col gap-3">

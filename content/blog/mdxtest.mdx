@@ -16,8 +16,6 @@ For example, you can use import and use React components inside your Markdown
 files like this:
 
 ```jsx filename="Markdown"
-## Hello MDX
-
 import { useState } from "react";
 
 export function Counter({ children }) {
@@ -30,10 +28,10 @@ export function Counter({ children }) {
   );
 }
 
-<Counter>**Clicks**: </Counter>
+<Counter>**Clicks**: </Counter>;
 ```
 
-Besides basic MDX, Nextra also has some advanced Markdown features built-in.
+Besides basic MDX, Nextra also has some advanced [^1] Markdown features built-in.
 
 ## GitHub Flavored Markdown
 
@@ -44,7 +42,7 @@ GitHub, that adds support for strikethrough, task lists, tables, and more.
 
 ~~removed~~
 
-```md filename="Markdown"
+```mdx filename="Markdown"
 ~~removed~~
 ```
 
@@ -68,7 +66,7 @@ GitHub, that adds support for strikethrough, task lists, tables, and more.
 | Paragraph     |    Text     |    And more |
 | Strikethrough |             |    ~~Text~~ |
 
-```md filename="Markdown"
+```mdx filename="Markdown"
 | Syntax        | Description |   Test Text |
 | :------------ | :---------: | ----------: |
 | Header        |    Title    | Here's this |
@@ -96,6 +94,14 @@ For example:
 In this example, `#about-nextra` will be used as the heading link, replacing the
 default `#long-heading-about-nextra`.
 
+Indent
+: ( _noun_ ) A whitespace to align text in a beautiful way.
+: ( _verb_ ) To add whitespace to make ugly code beautiful.
+
 ## Extended Syntax Highlighting
 
 Check out the Syntax Highlighting section for more information:
+
+@embed:https://www.youtube.com/watch?v=zZ6vybT1HQs&t=12438s
+
+[^1]: This is the first footnote.

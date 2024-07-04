@@ -32,9 +32,7 @@ export default function RootLayout({
               shadow="0 0 10px #ffc34b,0 0 5px #ffc34b"
             />
             <Header />
-            <main className="flex min-h-dvh flex-1 pt-[3.5rem]">
-              {children}
-            </main>
+            <main className="flex min-h-dvh flex-1 pt-14">{children}</main>
             <Footer />
           </div>
         </Providers>

@@ -10,10 +10,12 @@ import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeExternalLinks from "rehype-external-links";
-import rehypeMinifyWhitespace from "rehype-minify-whitespace";
+import rehypeSectionize from "@hbsnow/rehype-sectionize";
+import rehypeEmbed from "@hongvanpc10/rehype-embed";
+import remarkDeflist from "remark-deflist";
 import rehypeSlug from "rehype-slug";
-import remarkGfm from "remark-gfm";
 import smartypants from "remark-smartypants";
+import remarkBreaks from "remark-breaks";
 
 const computedFields = <T extends { slug: string; body: string }>(data: T) => {
   const readingTimeResult = calcReadingTime(data.body);
@@ -32,11 +34,12 @@ const posts = defineCollection({
   schema: s
     .object({
       slug: s.path(),
-      title: s.string().max(99),
+      title: s.string().min(3).max(99),
       description: s.string().max(999).optional(),
       date: s.isodate(),
       published: s.boolean().default(true),
-      tags: s.array(s.string()),
+      updated: s.isodate().optional(),
+      tags: s.array(s.string()).default([]),
       body: s.mdx(),
     })
     .transform(computedFields),
@@ -56,7 +59,7 @@ export default defineConfig({
   mdx: {
     rehypePlugins: [
       rehypeSlug,
-      [rehypePrettyCode, { theme: "dark-plus" }],
+      [rehypePrettyCode, { theme: "github-dark", keepBackground: false }],
       [
         rehypeAutolinkHeadings,
         {
@@ -71,15 +74,17 @@ export default defineConfig({
         rehypeExternalLinks,
         { target: "_blank", rel: ["nofollow", "noopener", "noreferrer"] },
       ],
-      rehypeMinifyWhitespace,
       rehypeAccessibleEmojis,
+      rehypeEmbed as any,
+      rehypeSectionize,
       rehypeTocPlugin,
     ],
     remarkPlugins: [
       remarkImgToJsx,
       remarkInternalLinkToJsx,
       remarkCustomHeadingId,
-      remarkGfm,
+      remarkDeflist,
+      remarkBreaks,
       smartypants,
     ],
   },

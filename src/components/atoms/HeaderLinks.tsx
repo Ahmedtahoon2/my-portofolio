@@ -14,7 +14,7 @@ export function HeaderLinks() {
             "hidden w-10 px-0 sm:inline-flex"
           )}
         >
-          <Icons.gitHub className="h-4 w-4" />
+          <Icons.gitHub className="size-4" />
           <span className="sr-only">GitHub</span>
         </div>
       </Link>
@@ -25,7 +25,7 @@ export function HeaderLinks() {
             "hidden w-10 px-0 sm:inline-flex"
           )}
         >
-          <Icons.twitter className="h-4 w-4" />
+          <Icons.twitter className="size-4" />
           <span className="sr-only">Twitter</span>
         </div>
       </Link>

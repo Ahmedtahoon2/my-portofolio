@@ -1,6 +1,6 @@
 // Utility function to log messages if logging is enabled
-export const log = (message: string, showLogs: boolean) => {
-  if (showLogs) {
+export const log = (message: string, showLogs: boolean | undefined) => {
+  if (!!showLogs) {
     console.log(message);
   }
 };
