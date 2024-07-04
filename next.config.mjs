@@ -10,8 +10,6 @@ class VeliteWebpackPlugin {
   static started = false;
 
   apply(compiler) {
-    // executed three times in nextjs
-    // twice for the server (nodejs / edge runtime) and once for the client
     compiler.hooks.beforeCompile.tapPromise("VeliteWebpackPlugin", async () => {
       if (VeliteWebpackPlugin.started) return;
       VeliteWebpackPlugin.started = true;
@@ -22,18 +20,20 @@ class VeliteWebpackPlugin {
 }
 
 const nextConfig = {
+  // Basic Next.js configuration options
   swcMinify: true,
   reactStrictMode: true,
   compress: true,
   crossOrigin: "anonymous",
   typescript: { ignoreBuildErrors: true },
   eslint: { dirs: ["."], ignoreDuringBuilds: true },
-  // other next config here...
+
+  // Webpack customization
   webpack: (config, { isServer }) => {
     config.plugins.push(new VeliteWebpackPlugin());
 
     if (isServer) {
-      // Any server-specific Webpack configuration here
+      // Server-specific webpack configurations if needed
     }
 
     return config;

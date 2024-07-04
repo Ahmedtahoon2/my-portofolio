@@ -1,3 +1,23 @@
+/**
+ * Copies the given text to the clipboard using the Clipboard API if available, or falls back to a textarea-based method.
+ *
+ * @param {string} text - The text to copy to the clipboard.
+ * @returns {Promise<void>} A promise that resolves when the text is successfully copied to the clipboard, or rejects if an error occurs.
+ *
+ * @throws {Error} Throws an error if copying to the clipboard fails, with a descriptive error message.
+ *
+ * @example
+ * import { copyToClipboard } from './copyToClipboard';
+ *
+ * const textToCopy = "Hello, world!";
+ *
+ * try {
+ *   await copyToClipboard(textToCopy);
+ *   console.log("Text copied to clipboard successfully!");
+ * } catch (error) {
+ *   console.error("Failed to copy text to clipboard:", error.message);
+ * }
+ */
 export async function copyToClipboard(text: string): Promise<void> {
   if (navigator?.clipboard) {
     try {

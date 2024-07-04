@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/eslintrc",
+  "$schema": "https://www.schemastore.org/schemas/json/eslintrc.json",
   "root": true,
   "extends": ["next/core-web-vitals"],
   "rules": {
@@ -25,7 +25,7 @@
   "overrides": [
     {
       "files": ["*.md", "*.mdx"],
-      "extends": "plugin:mdx/recommended",
+      "extends": ["plugin:mdx/recommended"],
       "plugins": ["mdx"],
       "rules": {
         "no-unused-expressions": "off",

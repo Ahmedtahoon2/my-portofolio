@@ -12,6 +12,12 @@ interface RehypeElement {
   children?: Array<RehypeElement>;
 }
 
+/**
+ * Customizes the Table of Contents (ToC) structure by wrapping it in a <details> element with a <summary>.
+ *
+ * @param {RehypeElement} toc - The original ToC element.
+ * @returns {RehypeElement | null} The customized ToC element or null if the original ToC has no children.
+ */
 const customizeToc = (toc: RehypeElement): RehypeElement | null => {
   if (!toc?.children?.length || !toc.children[0]?.children?.length) {
     return null;
@@ -52,6 +58,14 @@ const customizeToc = (toc: RehypeElement): RehypeElement | null => {
   };
 };
 
+/**
+ * A plugin for rehype that customizes the Table of Contents (ToC) structure.
+ *
+ * @type {Pluggable}
+ * @property {Function} rehypeToc - The rehype ToC plugin.
+ * @property {Object} options - Options for the rehype ToC plugin.
+ * @property {Function} options.customizeTOC - A function to customize the ToC structure.
+ */
 export const rehypeTocPlugin: Pluggable = [
   rehypeToc,
   { customizeTOC: customizeToc },

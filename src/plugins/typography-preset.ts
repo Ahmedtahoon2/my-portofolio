@@ -10,7 +10,21 @@ interface TypographyConfig {
   };
 }
 
-// Define the typography preset
+/**
+ * Typography configuration preset for Tailwind CSS.
+ *
+ * @type {Config} Tailwind CSS configuration object.
+ *
+ * @example
+ * import typographyPreset from './typographyPreset';
+ *
+ * const tailwindConfig: Config = {
+ *   content: [],
+ *   presets: [typographyPreset],
+ * };
+ *
+ * export default tailwindConfig;
+ */
 const typographyPreset: Config = {
   content: [], // Add the content property with an empty array
   theme: {

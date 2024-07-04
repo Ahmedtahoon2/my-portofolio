@@ -6,6 +6,18 @@ export type HProperties = {
   id?: string;
 };
 
+/**
+ * A remark plugin to add custom IDs to Markdown headings based on a specific pattern.
+ *
+ * This plugin scans headings for a custom ID pattern `[ #custom-id ]` and assigns the extracted ID
+ * to the heading. The pattern is removed from the heading text after extracting the ID.
+ *
+ * @example
+ * ## Heading [#custom-id]
+ * The above heading will be transformed to have `id="custom-id"` and the text `## Heading`.
+ *
+ * @returns A transformer function for the unified processor.
+ */
 export const remarkCustomHeadingId: Plugin<[], Root> =
   () => (tree, _file, done) => {
     visit(tree, "heading", node => {

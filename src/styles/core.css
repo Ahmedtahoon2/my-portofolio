@@ -1,26 +1,19 @@
 @tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 @layer base {
   *,
   *::before,
   *::after {
-    @apply box-border border-border;
-  }
-
-  * {
-    @apply m-0 subpixel-antialiased;
+    @apply m-0 box-border border-border subpixel-antialiased;
     font: inherit;
   }
 
   html,
   body {
     font-size: 100%;
-  }
-
-  body {
-    @apply isolate flex flex-col overflow-x-hidden bg-background text-sm text-foreground antialiased;
-    height: 100vh;
+    @apply isolate flex min-h-screen flex-col overflow-x-hidden scroll-smooth bg-background text-base text-foreground antialiased scrollbar-none;
   }
 
   img,
@@ -52,12 +45,6 @@
     -webkit-font-smoothing: auto;
   }
 
-  code {
-    overflow-x: auto;
-    overflow-wrap: break-word;
-    white-space: pre;
-  }
-
   button {
     @apply cursor-default font-manrope;
   }
@@ -70,23 +57,15 @@
   a,
   a * {
     @apply decoration-2 underline-offset-2;
+    color: inherit;
   }
 
   figure {
-    @apply relative m-0 block;
+    @apply relative block;
   }
 
   figure figcaption {
     @apply my-2.5 text-center text-xl;
-  }
-
-  input[type="text"],
-  input[type="email"] {
-    @apply appearance-none;
-  }
-
-  input[type="checkbox"] {
-    @apply align-middle;
   }
 
   *:focus {
@@ -126,18 +105,14 @@ html {
   scroll-padding-top: 4.5rem;
 }
 
-html,
-body {
-  @apply bg-background accent-accent scrollbar-none motion-safe:scroll-smooth;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .text-gradient {
     animation: move-bg 8s linear infinite;
   }
-  @keyframes move-bg {
-    to {
-      background-position: var(--bg-size) 0;
-    }
+}
+
+@keyframes move-bg {
+  to {
+    background-position: var(--bg-size) 0;
   }
 }

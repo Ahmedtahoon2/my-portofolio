@@ -7,11 +7,26 @@ export type RemarkInternalLinkToJsxOptions = {
   log?: boolean;
 };
 
+/**
+ * A remark plugin to convert internal Markdown links to JSX `Link` components.
+ *
+ * This plugin processes links in the Markdown AST and converts internal links (those that are not external URLs)
+ * into JSX `Link` components. Optionally, it can exclude external links from processing and log the processing steps.
+ *
+ * @param {RemarkInternalLinkToJsxOptions} [options={ excludeExternalLinks: true, log: false }] - Configuration options.
+ * @param {boolean} [options.excludeExternalLinks=true] - Whether to exclude external links (those starting with "http://" or "https://") from processing.
+ * @param {boolean} [options.log=false] - Whether to log the processing of each link.
+ * @returns A transformer function for the unified processor.
+ *
+ */
 export const remarkInternalLinkToJsx: Plugin<
   [RemarkInternalLinkToJsxOptions],
   Root
 > = (
-  { excludeExternalLinks, log } = { excludeExternalLinks: true, log: false }
+  { excludeExternalLinks, log }: RemarkInternalLinkToJsxOptions = {
+    excludeExternalLinks: true,
+    log: false,
+  }
 ) => {
   return tree => {
     visit(tree, "link", node => {
