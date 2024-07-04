@@ -7,7 +7,6 @@ import { Providers } from "@/components/molecules/Providers";
 import Header from "@/components/molecules/Header";
 import Footer from "@/components/molecules/Footer";
 import "@/styles/core.css";
-import "./globals.css";
 
 export default function RootLayout({
   children,

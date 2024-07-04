@@ -124,25 +124,26 @@ details summary::marker {
 }
 
 /* Subheading anchor styles */
+
 .subheading-anchor {
-  @apply rounded no-underline opacity-0 transition-opacity duration-150 ease-out;
+  @apply no-underline;
 }
 
-.subheading-anchor:focus,
-:hover > .subheading-anchor {
+.subheading-anchor::after {
+  content: "#";
+  @apply pl-1 pr-1 text-gray-500 opacity-0 transition-opacity ease-out;
+}
+
+.subheading-anchor:focus::after,
+:hover > .subheading-anchor::after {
   @apply opacity-100;
 }
 
-.subheading-anchor:after {
-  content: "#";
-  @apply pl-1 pr-1 text-gray-500;
-}
-
-html.dark .subheading-anchor:after {
+html.dark .subheading-anchor::after {
   @apply text-gray-300;
 }
 
-[dir="ltr"] .subheading-anchor {
+[dir="ltr"] .subheading-anchor::after {
   @apply ml-1;
 }
 

@@ -1,6 +1,13 @@
 import plugin from "tailwindcss/plugin";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
+/**
+ * Tailwind CSS plugin to customize CSS variables and extend theme configuration.
+ *
+ * @param {object} param - Parameters object for Tailwind CSS plugin.
+ * @param {Function} param.addBase - Function to add base styles.
+ *
+ */
 const shadcnPlugin = plugin(
   function ({ addBase }) {
     addBase({

@@ -4,7 +4,16 @@ import { imageProcess } from "./imageProcess";
 import { Config, ImageNode } from "./types";
 import { handleError } from "./utils";
 
-// Main remark plugin function
+/**
+ * Transforms image nodes in a Markdown AST to JSX format.
+ *
+ * @param {Config} [config={ showLogs: false }] - Configuration object.
+ * @param {boolean} [config.showLogs=false] - Whether to display logs.
+ * @param {number} [config.webpQuality] - Optional quality setting for WebP conversion.
+ * @returns An async function that processes all image nodes in a Markdown AST.
+ * @throws Will throw an error if image processing fails.
+ *
+ */
 export function remarkImgToJsx(config: Config = { showLogs: false }) {
   return async (tree: Node) => {
     const promises: Promise<void>[] = [];
