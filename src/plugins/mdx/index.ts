@@ -8,3 +8,4 @@ export {
   type HProperties,
 } from "./remark-custom-heading-id";
 export { rehypeTocPlugin } from "./rehype-toc-plugin";
+export { rehypeCodeCustom } from "./rehype-code-custom";

@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import NextTopLoader from "nextjs-toploader";
 import type { Metadata, Viewport } from "next";
 import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
+import { config, siteConfig } from "@/config/site";
 import { Providers } from "@/components/molecules/Providers";
 import Header from "@/components/molecules/Header";
 import Footer from "@/components/molecules/Footer";
@@ -58,9 +58,12 @@ export const Manrope = localFont({
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
+  metadataBase: new URL(config.url),
   alternates: {
-    canonical: siteConfig.url,
+    canonical: config.url,
+    types: {
+      "application/rss+xml": `${config.url}/api/rss.xml`,
+    },
   },
 };
 

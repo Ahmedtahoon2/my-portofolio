@@ -1,30 +1,38 @@
 import { Post } from "@site/content";
 
 /**
- * Sorts an array of posts by their published date in descending order.
- *
- * @param {Post[]} posts - The array of posts to be sorted.
- * @returns {Post[]} The sorted array of posts.
- *
- * @example
- * import { sortPosts } from './sortPosts';
- *
- * const posts = [
- *   { title: 'Post 1', date: '2023-01-01', published: true },
- *   { title: 'Post 2', date: '2023-02-15', published: false },
- *   { title: 'Post 3', date: '2023-03-10', published: true }
- * ];
- *
- * const sortedPosts = sortPosts(posts);
- * console.log(sortedPosts);
- * // Output: [{ title: 'Post 3', date: '2023-03-10', published: true }, { title: 'Post 1', date: '2023-01-01', published: true }]
+ * Enum for the sort order.
+ * @readonly
+ * @enum {string}
  */
-export function sortPosts(posts: Post[]): Post[] {
-  return posts
-    .filter(post => post.published)
-    .sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return dateB - dateA;
-    });
+export enum SortOrder {
+  NewFirst = "new-first",
+  OldFirst = "old-first",
+}
+
+/**
+ * Sorts the posts based on the given order.
+ *
+ * @param {Post[]} posts - The list of posts to be sorted.
+ * @param {SortOrder} orderBy - The order by which to sort the posts.
+ * @returns {Post[]} The sorted list of posts.
+ */
+export function sortPosts(posts: Post[], orderBy: string): Post[] {
+  // Filter posts to include only published ones
+  const filteredPosts: Post[] = posts.filter(post => post.published);
+
+  // Sort the posts based on the specified order
+  return filteredPosts.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    switch (orderBy) {
+      case "new-first":
+        return dateB - dateA;
+      case "old-first":
+        return dateA - dateB;
+      default:
+        return 0;
+    }
+  });
 }

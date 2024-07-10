@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { posts } from "@site/content";
 import { formatDate } from "@/lib/formatDate";
-import { siteConfig } from "@/config/site";
+import { config, siteConfig } from "@/config/site";
 import ScrollButton from "@/components/atoms/scrollButton";
 import { MDXContent } from "@/components/molecules/MdxComponent";
 import { Tag } from "@/components/atoms/Tag";
@@ -54,7 +54,7 @@ export async function generateMetadata({
       locale: siteConfig.geolocation.locale,
       images: [
         {
-          url: `${siteConfig.url}/api/og?${ogSearchParams.toString()}`,
+          url: `${config.url}/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -66,7 +66,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`${siteConfig.url}/api/og?${ogSearchParams.toString()}`],
+      images: [`${config.url}/api/og?${ogSearchParams.toString()}`],
     },
   };
 }
@@ -84,11 +84,11 @@ export default async function PostPage({ params }: PostPageProps) {
         <section>
           <time
             dateTime={post.date}
-            className="text-muted-foreground block text-sm"
+            className="bg-secondary inline-block rounded px-2 py-1 text-xs"
           >
-            Published on {formatDate(post.date)}
+            {formatDate(post.date)}
           </time>
-          <h1 className="font-heading mb-4 mt-2 inline-block text-4xl leading-tight lg:text-5xl">
+          <h1 className="font-heading mb-4 mt-2 block text-4xl leading-tight lg:text-5xl">
             {post.title}
           </h1>
           <div className="mb-4 flex gap-2">

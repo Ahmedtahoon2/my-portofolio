@@ -10,10 +10,14 @@
     font: inherit;
   }
 
+  *::selection {
+    @apply bg-orange-300/80 text-primary dark:bg-yellow-600/80;
+  }
+
   html,
   body {
+    @apply isolate flex min-h-screen flex-col overflow-x-hidden scroll-smooth bg-background font-inter text-base text-foreground antialiased scrollbar-none;
     font-size: 100%;
-    @apply isolate flex min-h-screen flex-col overflow-x-hidden scroll-smooth bg-background text-base text-foreground antialiased scrollbar-none;
   }
 
   img,
@@ -91,7 +95,7 @@
         90deg,
         rgb(255, 100, 105) 0%,
         rgb(255, 150, 86) 25%,
-        rgb(255, 195, 75) 50%,
+        rgb(255, 180, 75) 50%,
         rgb(255, 150, 86) 75%,
         rgb(255, 100, 105) 100%
       )

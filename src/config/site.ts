@@ -1,6 +1,5 @@
 export const siteConfig = {
   name: "JollyBlog",
-  url: "https://my-portofolio-roan-three.vercel.app",
   description: "Nextjs 14 blog using velite, tailwind and shadcn",
   author: "Ahmed Tahoon",
   links: {
@@ -14,3 +13,16 @@ export const siteConfig = {
     dir: "ltr",
   },
 };
+
+const productionConfig = {
+  url:
+    process.env.NEXT_PUBLIC_APP_URL ||
+    "https://my-portofolio-roan-three.vercel.app/",
+};
+
+const developmentConfig = {
+  url: "http://localhost:3000",
+};
+
+export const config =
+  process.env.NODE_ENV === "development" ? developmentConfig : productionConfig;

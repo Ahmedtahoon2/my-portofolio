@@ -1,5 +1,5 @@
 import { Mail } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { config, siteConfig } from "@/config/site";
 import { Icons } from "@/components/atoms/Icons";
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
           </a>
         </div>
         <div className="text-muted-foreground mb-2 flex space-x-2 text-sm">
-          <a target="_blank" rel="noreferrer" href={siteConfig.url}>
+          <a target="_blank" rel="noreferrer" href={config.url}>
             {siteConfig.author}
           </a>
         </div>

@@ -13,13 +13,13 @@ export function MainNav() {
         <Logo className="size-6" />
       </Link>
       <Link
-        href="/blog"
+        href="/posts"
         className={cn(
           "hover:text-primary hidden text-base font-medium transition-colors sm:inline-block",
           pathname === "/blog" ? "text-foreground" : "text-foreground/60"
         )}
       >
-        Blog
+        Posts
       </Link>
       <Link
         href="/about"

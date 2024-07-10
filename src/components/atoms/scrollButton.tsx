@@ -36,7 +36,7 @@ const ScrollButton = () => {
   return (
     <div
       className={cn(
-        "bg-foreground text-background fixed bottom-12 right-10 z-10 cursor-pointer rounded-full p-2 text-3xl transition-opacity",
+        "text-background fixed bottom-12 right-10 z-10 cursor-pointer rounded-full bg-zinc-900 p-2 text-3xl transition-opacity dark:bg-slate-50",
         visible ? "opacity-100" : "opacity-0"
       )}
     >

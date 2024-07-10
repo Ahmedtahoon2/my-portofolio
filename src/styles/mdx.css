@@ -1,38 +1,55 @@
+/* Define CSS variables for colors */
+:root {
+  --bg-color: rgb(30, 30, 30);
+  --text-color: rgb(212, 212, 212);
+  --highlight-bg: rgba(200, 200, 255, 0.1);
+  --add-bg: rgba(46, 160, 67, 0.15);
+  --add-border: rgba(46, 160, 67, 0.3);
+  --add-symbol: rgb(61, 214, 140);
+  --remove-bg: rgba(248, 81, 73, 0.15);
+  --remove-border: rgba(248, 81, 73, 0.3);
+  --remove-symbol: rgb(203, 118, 118);
+}
+
 /* rehype-pretty-code figure styles */
 [data-rehype-pretty-code-figure] pre {
   @apply px-0;
-  background-color: rgb(30, 30, 30);
-  color: rgb(212, 212, 212);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
-[data-rehype-pretty-code-figure] code {
-  @apply border-0 text-sm leading-loose max-sm:pb-2;
+p:has(code:not([data-language="plaintext"])) {
+  @apply flex items-center;
+}
+
+[data-rehype-pretty-code-figure] > code {
+  @apply px-2;
+}
+
+[data-rehype-pretty-code-figure] pre code {
+  @apply grid min-w-full break-words border-none bg-transparent text-sm leading-loose text-black max-sm:pb-2;
+  box-decoration-break: clone;
+  counter-reset: line;
 }
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] {
   counter-reset: line;
 }
 
+[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line] {
+  @apply !pl-0;
+}
+
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+  @apply pl-4 pr-2 text-right text-gray-500;
   counter-increment: line;
   content: counter(line);
-  @apply mr-4 inline-block w-4 text-right text-gray-500;
 }
 
 [data-rehype-pretty-code-figure]
   code:not([data-language="plaintext"], [data-language="ansi"])
   > [data-line] {
-  @apply border-l-2 border-l-transparent px-3;
-}
-
-[data-rehype-pretty-code-figure] [data-highlighted-line] {
-  background: rgba(200, 200, 255, 0.1);
-  @apply !border-l-blue-400;
-}
-
-[data-rehype-pretty-code-figure] [data-highlighted-chars] {
-  @apply rounded bg-zinc-600/50;
-  box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
+  @apply px-3;
 }
 
 [data-rehype-pretty-code-figure] [data-chars-id] {
@@ -43,54 +60,27 @@
   @apply text-lg;
 }
 
+/* rehype-pretty-code title styles */
 [data-rehype-pretty-code-title] {
-  @apply rounded-t-md bg-gray-700 px-5 py-2 font-mono text-sm font-semibold text-gray-200;
+  @apply mt-4 rounded-t-md bg-gray-600 px-5 py-2 font-mono text-sm font-semibold text-gray-200;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  @apply mt-0;
 }
 
 [data-rehype-pretty-code-title] ~ div > pre {
   @apply mt-0 rounded-t-none;
 }
 
-/* rehype-pretty-code fragment styles */
-[data-rehype-pretty-code-fragment] code {
-  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 text-sm text-black;
-  counter-reset: line;
-  box-decoration-break: clone;
+/* Line styles within code block */
+[data-rehype-pretty-code-figure] .line--highlighted {
+  @apply border-l-[3px] !border-l-orange-400 dark:!border-l-orange-300;
+  background: var(--highlight-bg);
 }
 
-[data-rehype-pretty-code-fragment] .line {
-  @apply px-4 py-1;
-}
-
-[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
-  counter-increment: line;
-  content: counter(line);
-  display: inline-block;
-  width: 1rem;
-  margin-right: 1rem;
-  text-align: right;
-  color: gray;
-}
-
-[data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply bg-slate-300 bg-opacity-10;
-}
-
-[data-rehype-pretty-code-fragment] .line-highlighted span {
-  @apply relative;
-}
-
-[data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply rounded-md bg-slate-300 bg-opacity-10 p-1;
-}
-
-/* rehype-pretty-code title styles */
-[data-rehype-pretty-code-title] {
-  @apply mt-4 px-4 py-2 text-sm font-medium;
-}
-
-[data-rehype-pretty-code-title] + pre {
-  @apply mt-0;
+[data-rehype-pretty-code-figure] .word--highlighted {
+  @apply mx-1 rounded-md bg-slate-300 bg-opacity-10 p-1;
 }
 
 /* Table of Contents (TOC) styles */
@@ -124,7 +114,6 @@ details summary::marker {
 }
 
 /* Subheading anchor styles */
-
 .subheading-anchor {
   @apply no-underline;
 }
@@ -167,7 +156,7 @@ article.prose > p code {
   @apply relative top-[-2px] inline align-middle;
 }
 
-em {
+article.prose em {
   @apply italic;
 }
 
@@ -176,4 +165,44 @@ em {
   @apply border-b-[1px] border-solid border-blue-500 font-bold;
   outline-offset: 2px;
   outline: 2px solid transparent;
+}
+
+/* diff style */
+.diff {
+  @apply relative flex items-center;
+}
+
+.diff::before {
+  @apply flex justify-center;
+  color: var(--text-color) !important;
+}
+
+.diff::after {
+  @apply absolute left-12 select-none text-base;
+}
+
+.add {
+  background-color: var(--add-bg);
+}
+
+.add::before {
+  background-color: var(--add-border);
+}
+
+.add::after {
+  content: "+";
+  color: var(--add-symbol);
+}
+
+.remove {
+  background-color: var(--remove-bg);
+}
+
+.remove::before {
+  background-color: var(--remove-border);
+}
+
+.remove::after {
+  content: "-";
+  color: var(--remove-symbol);
 }
