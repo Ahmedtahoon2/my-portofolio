@@ -15,10 +15,6 @@
     "knip": "knip"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,json,css,md,mdx}": [
-      "prettier --write",
-      "git add"
-    ],
     "**/*.{ts,tsx,md,mdx}": [
       "eslint --fix"
     ]
@@ -87,7 +83,6 @@
     "lint-staged": "^15.2.5",
     "postcss": "^8",
     "prettier": "3.3.0",
-    "prettier-plugin-tailwindcss": "^0.6.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.5",
     "velite": "^0.1.0-rc.3"

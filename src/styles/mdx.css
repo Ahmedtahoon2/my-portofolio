@@ -168,12 +168,16 @@ article.prose em {
 }
 
 /* diff style */
+.has-diff code[data-line-numbers] > [data-line]::before {
+  @apply mr-3;
+}
+
 .diff {
   @apply relative flex items-center;
 }
 
 .diff::before {
-  @apply flex justify-center;
+  @apply mr-4 flex justify-center;
   color: var(--text-color) !important;
 }
 
