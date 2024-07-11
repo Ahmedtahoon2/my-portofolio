@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 import animate from "tailwindcss-animate";
-import scrollbar from "tailwind-scrollbar";
 import shadcnPlugin from "./src/plugins/shadcn-plugin";
 import typographyPreset from "./src/plugins/typography-preset";
 
@@ -26,7 +25,7 @@ const config = {
     },
   },
   presets: [typographyPreset],
-  plugins: [typography, animate, scrollbar, shadcnPlugin],
+  plugins: [typography, animate, shadcnPlugin],
 } satisfies Config;
 
 export default config;

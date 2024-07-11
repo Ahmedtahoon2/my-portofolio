@@ -17,7 +17,7 @@ export const siteConfig = {
 const productionConfig = {
   url:
     process.env.NEXT_PUBLIC_APP_URL ||
-    "https://my-portofolio-roan-three.vercel.app/",
+    "https://my-portofolio-roan-three.vercel.app",
 };
 
 const developmentConfig = {
