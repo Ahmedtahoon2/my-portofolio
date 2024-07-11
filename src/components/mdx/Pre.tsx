@@ -57,6 +57,7 @@ export default function Pre(props: ComponentProps<"pre">) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
+                    className="text-gray-200"
                   />
                 )}
               </div>

@@ -37,6 +37,8 @@
     "Pluggable",
     "rehype",
     "shadcn",
+    "shiki",
+    "shikijs",
     "slugified",
     "tailwindcss",
     "toploader",

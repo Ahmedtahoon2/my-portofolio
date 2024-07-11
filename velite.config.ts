@@ -2,13 +2,13 @@ import { defineConfig, defineCollection, s } from "velite";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import {
   rehypeTocPlugin,
+  rehypeCodeCustom,
   remarkCustomHeadingId,
   remarkImgToJsx,
   remarkInternalLinkToJsx,
 } from "@/plugins/mdx";
 import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypePrettyCode from "rehype-pretty-code";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSectionize from "@hbsnow/rehype-sectionize";
 import rehypeEmbed from "@hongvanpc10/rehype-embed";
@@ -30,7 +30,7 @@ const computedFields = <T extends { slug: string; body: string }>(data: T) => {
 // Define the posts collection schema and pattern
 const posts = defineCollection({
   name: "Post",
-  pattern: "blog/**/*.mdx",
+  pattern: "posts/**/*.mdx",
   schema: s
     .object({
       slug: s.path(),
@@ -45,6 +45,29 @@ const posts = defineCollection({
     .transform(computedFields),
 });
 
+export const projects = defineCollection({
+  name: "Project",
+  pattern: "projects/**/*.mdx",
+  schema: s
+    .object({
+      slug: s.path(),
+      title: s.string().min(3).max(99),
+      description: s.string(),
+      date: s.isodate(),
+      tags: s.array(s.string()).default([]),
+      body: s.mdx(),
+      image: s.image(),
+      imageDark: s.image().optional(),
+      links: s.array(
+        s.object({
+          name: s.string(),
+          url: s.string().url(),
+        })
+      ),
+    })
+    .transform(computedFields),
+});
+
 // Export the configuration
 export default defineConfig({
   root: "content",
@@ -55,11 +78,10 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { posts },
+  collections: { posts, projects },
   mdx: {
     rehypePlugins: [
       rehypeSlug,
-      [rehypePrettyCode, { theme: "github-dark", keepBackground: false }],
       [
         rehypeAutolinkHeadings,
         {
@@ -77,12 +99,13 @@ export default defineConfig({
       rehypeAccessibleEmojis,
       rehypeEmbed as any,
       rehypeSectionize,
+      rehypeCodeCustom,
       rehypeTocPlugin,
     ],
     remarkPlugins: [
-      remarkImgToJsx,
       remarkInternalLinkToJsx,
       remarkCustomHeadingId,
+      remarkImgToJsx,
       remarkDeflist,
       remarkBreaks,
       smartypants,
