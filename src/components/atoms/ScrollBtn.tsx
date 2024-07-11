@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const ScrollButton = () => {
+export const ScrollBtn = () => {
   const [visible, setVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -45,4 +45,3 @@ const ScrollButton = () => {
   );
 };
 
-export default ScrollButton;

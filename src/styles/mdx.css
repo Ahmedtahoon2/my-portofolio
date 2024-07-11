@@ -23,7 +23,7 @@ p:has(code:not([data-language="plaintext"])) {
 }
 
 [data-rehype-pretty-code-figure] > code {
-  @apply px-2;
+  @apply px-1;
 }
 
 [data-rehype-pretty-code-figure] pre code {

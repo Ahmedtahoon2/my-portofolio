@@ -18,11 +18,14 @@
     "dracula",
     "ecma",
     "esnext",
+    "facebook",
     "hbsnow",
     "hongvanpc",
+    "instagram",
     "isodate",
     "jsdevtools",
     "knip",
+    "linkedin",
     "lintstagedrc",
     "lucide",
     "magicui",
@@ -46,7 +49,9 @@
     "unist",
     "velite",
     "Velite",
-    "vfile"
+    "vfile",
+    "whatsapp",
+    "youtube"
   ],
   "css.lint.unknownAtRules": "ignore",
   "typescript.enablePromptUseWorkspaceTsdk": true

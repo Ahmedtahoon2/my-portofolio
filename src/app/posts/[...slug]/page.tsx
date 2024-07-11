@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import { posts } from "@site/content";
 import { formatDate } from "@/lib/formatDate";
 import { config, siteConfig } from "@/config/site";
-import ScrollButton from "@/components/atoms/scrollButton";
+import { convertToHashtag } from "@/lib/convertToHashtag";
 import { MDXContent } from "@/components/molecules/MdxComponent";
+import { ScrollBtn } from "@/components/atoms/ScrollBtn";
+import { ShareBtns } from "@/components/atoms/ShareBtns";
 import { Tag } from "@/components/atoms/Tag";
 import "@/styles/mdx.css";
 
@@ -81,31 +83,37 @@ export default async function PostPage({ params }: PostPageProps) {
 
     return (
       <article className="prose dark:prose-invert container mx-auto max-w-3xl py-6">
-        <section>
+        <section className="mb-2 flex flex-col gap-4">
           <time
             dateTime={post.date}
-            className="bg-secondary inline-block rounded px-2 py-1 text-xs"
+            className="bg-secondary block w-fit rounded px-2 py-1 text-xs"
           >
             {formatDate(post.date)}
           </time>
-          <h1 className="font-heading mb-4 mt-2 block text-4xl leading-tight lg:text-5xl">
+          <h1 className="font-heading mb-0 mt-2 block text-4xl leading-tight lg:text-5xl">
             {post.title}
           </h1>
-          <div className="mb-4 flex gap-2">
+          <div className="flex gap-2">
             {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
           </div>
           {post.description ? (
-            <p className="text-muted-foreground mt-0 text-xl">
+            <p className="text-muted-foreground m-0 text-xl">
               {post.description}
             </p>
           ) : null}
-          <p className="text-muted-foreground mt-0 text-xl">
+          <p className="text-muted-foreground m-0 text-xl">
             Reading time: {post.readingTime.text}
           </p>
+          <ShareBtns
+            url={`${config.url}/posts/${post.slugAsParams}`}
+            quote={post.description || ""}
+            hashtags={convertToHashtag(post.tags, "#Ahmed_Tahoon")}
+            blankTarget
+          />
         </section>
         <hr className="my-4" />
         <MDXContent code={post.body} />
-        <ScrollButton />
+        <ScrollBtn />
       </article>
     );
   } catch (error) {
