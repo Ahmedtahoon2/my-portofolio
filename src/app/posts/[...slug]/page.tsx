@@ -1,19 +1,19 @@
 import Link from "next/link";
+import { ArrowLeftIcon, BookOpen } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { posts } from "@site/content";
-import { formatDate } from "@/lib/formatDate";
 import { config, siteConfig } from "@/config/site";
+import { formatDate } from "@/lib/formatDate";
 import { convertToHashtag } from "@/lib/convertToHashtag";
 import { MDXContent } from "@/components/molecules/MdxComponent";
+import { Picture } from "@/components/atoms/postPicture";
 import { ScrollBtn } from "@/components/atoms/ScrollBtn";
 import { ShareBtns } from "@/components/atoms/ShareBtns";
 import { Tag } from "@/components/atoms/Tag";
-import { ArrowLeftIcon, BookOpen } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import "@/styles/mdx.css";
-import Picture from "@/components/atoms/postPicture";
 
 interface PostPageProps {
   params: {
@@ -87,12 +87,12 @@ export default async function PostPage({ params }: PostPageProps) {
     }
 
     return (
-      <article className="prose dark:prose-invert container relative mx-auto max-w-3xl py-4">
+      <article className="prose dark:prose-invert container relative mx-auto max-w-3xl py-6">
         <Link
           href="/posts"
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "absolute left-[-200px] top-2 hidden no-underline lg:inline-flex"
+            "absolute left-[-200px] top-4 hidden no-underline lg:inline-flex"
           )}
         >
           <ArrowLeftIcon className="mr-2 size-4" />
@@ -112,7 +112,7 @@ export default async function PostPage({ params }: PostPageProps) {
             image={post.image}
             imageDark={post.imageDark}
             alt={post.title}
-            className="my-0 w-full"
+            className="my-0 w-[90%]"
           />
           <div className="flex gap-2">
             {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
