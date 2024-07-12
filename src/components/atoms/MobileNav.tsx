@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { MobileLink } from "@/components/atoms/MobileLink";
 import { Logo } from "@/components/atoms/Logo";
+import { Icons } from "./Icons";
+import { cn } from "@/lib/utils";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -24,28 +25,41 @@ export function MobileNav() {
         <MobileLink
           onOpenChange={setOpen}
           href="/"
-          className="mb-3 flex items-center"
+          className="mb-6 flex items-center"
         >
           <Logo className="mr-2 size-4" />
-          <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
-        <div className="mt-3 flex flex-col gap-3">
+        <div className="mt-3 flex flex-col gap-4">
           <MobileLink onOpenChange={setOpen} href="/posts">
             Posts
           </MobileLink>
           <MobileLink onOpenChange={setOpen} href="/about">
             About
           </MobileLink>
-          <Link target="_blank" rel="noreferrer" href={siteConfig.links.github}>
-            GitHub
-          </Link>
-          <Link
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.twitter}
-          >
-            Twitter
-          </Link>
+          <div className="flex justify-center gap-2">
+            <a href={siteConfig.links.github} target="_blank" rel="noreferrer">
+              <div
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "inline-flex w-10 px-0"
+                )}
+              >
+                <Icons.gitHub className="size-4" />
+                <span className="sr-only">GitHub</span>
+              </div>
+            </a>
+            <a href={siteConfig.links.twitter} target="_blank" rel="noreferrer">
+              <div
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "inline-flex w-10 px-0"
+                )}
+              >
+                <Icons.twitter className="size-4" />
+                <span className="sr-only">Twitter</span>
+              </div>
+            </a>
+          </div>
         </div>
       </SheetContent>
     </Sheet>

@@ -12,9 +12,9 @@ type PictureProps = {
   className?: string;
 };
 
-export default function Picture({ image, imageDark, quality, width, height, alt, className }: PictureProps) {
+export function Picture({ image, imageDark, quality, width, height, alt, className }: PictureProps) {
   return (
-    <>
+    <div className="flex justify-start">
       <Image
         src={image.src}
         alt={alt}
@@ -37,6 +37,6 @@ export default function Picture({ image, imageDark, quality, width, height, alt,
         placeholder="blur"
         quality={quality || 100}
       />}
-    </>
+    </div>
   );
 }

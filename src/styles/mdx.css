@@ -19,7 +19,7 @@
 }
 
 p:has(code:not([data-language="plaintext"])) {
-  @apply flex items-center;
+  @apply flex items-start md:items-center flex-col md:flex-row;
 }
 
 [data-rehype-pretty-code-figure] > code {
@@ -77,6 +77,10 @@ p:has(code:not([data-language="plaintext"])) {
 [data-rehype-pretty-code-figure] .line--highlighted {
   @apply border-l-[3px] !border-l-orange-400 dark:!border-l-orange-300;
   background: var(--highlight-bg);
+}
+
+[data-rehype-pretty-code-figure] .line--highlighted::before {
+  @apply !pl-[0.85rem];
 }
 
 [data-rehype-pretty-code-figure] .word--highlighted {

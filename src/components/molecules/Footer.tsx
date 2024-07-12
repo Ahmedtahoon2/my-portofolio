@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer>
-      <div className="mb-6 mt-10 flex flex-col items-center">
+      <div className="my-6 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
           <a target="_blank" rel="noreferrer" href={`mailto:${siteConfig.links.email}`}>
             <span className="sr-only">Mail</span>

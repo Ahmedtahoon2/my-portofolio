@@ -28,7 +28,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link
-            href="/blog"
+            href="/posts"
             className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}
           >
             View my blog
