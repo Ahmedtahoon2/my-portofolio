@@ -1,11 +1,11 @@
 import { defineConfig, defineCollection, s } from "velite";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import {
-  rehypeTocPlugin,
-  rehypeCodeCustom,
-  remarkCustomHeadingId,
-  remarkImgToJsx,
   remarkInternalLinkToJsx,
+  remarkCustomHeadingId,
+  rehypeCodeCustom,
+  rehypeTocPlugin,
+  remarkImgToJsx,
 } from "@/plugins/mdx";
 import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -40,6 +40,8 @@ const posts = defineCollection({
       published: s.boolean().default(true),
       updated: s.isodate().optional(),
       tags: s.array(s.string()).default([]),
+      image: s.image(),
+      imageDark: s.image().optional(),
       body: s.mdx(),
     })
     .transform(computedFields),
