@@ -40,3 +40,6 @@ next-env.d.ts
 
 # Ignore analyze file
 analyze
+
+# Ignore static
+/public/static

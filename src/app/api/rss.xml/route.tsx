@@ -3,32 +3,39 @@ import { posts } from "@site/content";
 import RSS from "rss";
 
 export async function GET() {
-  const siteUrl = config.url;
+  try {
+    const siteUrl = config.url;
 
-  const feedOptions: RSS.FeedOptions = {
-    title: "Blog posts | RSS Feed",
-    description: "Welcome to this blog posts!",
-    site_url: siteUrl,
-    feed_url: `${siteUrl}/api/rss.xml`,
-    pubDate: new Date(),
-    copyright: `All rights reserved ${new Date().getFullYear()}, ${siteConfig.author}`,
-  };
+    const feedOptions = {
+      title: "Blog posts | RSS Feed",
+      description: "Welcome to this blog posts!",
+      site_url: siteUrl,
+      feed_url: `${siteUrl}/api/rss.xml`,
+      pubDate: new Date().toUTCString(),
+      copyright: `All rights reserved ${new Date().getFullYear()}, ${siteConfig.author}`,
+    };
 
-  const feed = new RSS(feedOptions);
+    const feed = new RSS(feedOptions);
 
-  posts.forEach(post => {
-    feed.item({
-      title: post.title,
-      description: post.description || "",
-      guid: post.slugAsParams,
-      url: `${siteUrl}/posts/${post.slugAsParams}`,
-      date: new Date(post.date),
+    for (const post of posts) {
+      if (post.published) {
+        feed.item({
+          title: post.title,
+          description: post.description || "",
+          guid: post.slugAsParams,
+          url: `${siteUrl}/posts/${post.slugAsParams}`,
+          date: new Date(post.date).toUTCString(),
+        });
+      }
+    }
+
+    return new Response(feed.xml({ indent: true }), {
+      headers: {
+        "Content-Type": "application/rss+xml; charset=utf-8",
+      },
     });
-  });
-
-  return new Response(feed.xml({ indent: true }), {
-    headers: {
-      "Content-Type": "application/atom+xml; charset=utf-8",
-    },
-  });
+  } catch (error) {
+    console.error("Error generating RSS feed:", error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
 }

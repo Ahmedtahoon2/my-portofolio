@@ -1,5 +1,6 @@
-import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { posts } from "@site/content";
 import { formatDate } from "@/lib/formatDate";
 import { config, siteConfig } from "@/config/site";
@@ -8,7 +9,11 @@ import { MDXContent } from "@/components/molecules/MdxComponent";
 import { ScrollBtn } from "@/components/atoms/ScrollBtn";
 import { ShareBtns } from "@/components/atoms/ShareBtns";
 import { Tag } from "@/components/atoms/Tag";
+import { ArrowLeftIcon, BookOpen } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import "@/styles/mdx.css";
+import Picture from "@/components/atoms/postPicture";
 
 interface PostPageProps {
   params: {
@@ -82,7 +87,17 @@ export default async function PostPage({ params }: PostPageProps) {
     }
 
     return (
-      <article className="prose dark:prose-invert container mx-auto max-w-3xl py-6">
+      <article className="prose dark:prose-invert container relative mx-auto max-w-3xl py-4">
+        <Link
+          href="/posts"
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "absolute left-[-200px] top-2 hidden no-underline lg:inline-flex"
+          )}
+        >
+          <ArrowLeftIcon className="mr-2 size-4" />
+          See all blogs
+        </Link>
         <section className="mb-2 flex flex-col gap-4">
           <time
             dateTime={post.date}
@@ -90,9 +105,15 @@ export default async function PostPage({ params }: PostPageProps) {
           >
             {formatDate(post.date)}
           </time>
-          <h1 className="font-heading mb-0 mt-2 block text-4xl leading-tight lg:text-5xl">
+          <h1 className="font-heading my-0 block text-4xl leading-tight lg:text-5xl">
             {post.title}
           </h1>
+          <Picture
+            image={post.image}
+            imageDark={post.imageDark}
+            alt={post.title}
+            className="my-0 w-full"
+          />
           <div className="flex gap-2">
             {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
           </div>
@@ -101,18 +122,28 @@ export default async function PostPage({ params }: PostPageProps) {
               {post.description}
             </p>
           ) : null}
-          <p className="text-muted-foreground m-0 text-xl">
-            Reading time: {post.readingTime.text}
-          </p>
-          <ShareBtns
-            url={`${config.url}/posts/${post.slugAsParams}`}
-            quote={post.description || ""}
-            hashtags={convertToHashtag(post.tags, "#Ahmed_Tahoon")}
-            blankTarget
-          />
+          <div className="flex items-center justify-between">
+            <ShareBtns
+              url={`${config.url}/posts/${post.slugAsParams}`}
+              quote={post.description || ""}
+              hashtags={convertToHashtag(post.tags, "#Ahmed_Tahoon")}
+              blankTarget
+            />
+            <p className="text-muted-foreground my-0"><BookOpen className="mr-1 inline" /> {post.readingTime.text}</p>
+          </div>
         </section>
         <hr className="my-4" />
         <MDXContent code={post.body} />
+        <hr className="my-4 md:my-6" />
+        <div className="flex justify-center py-4">
+          <Link
+            href="/posts"
+            className={cn(buttonVariants({ variant: "ghost" }))}
+          >
+            <ArrowLeftIcon className="mr-2 size-4" />
+            See all blogs
+          </Link>
+        </div>
         <ScrollBtn />
       </article>
     );

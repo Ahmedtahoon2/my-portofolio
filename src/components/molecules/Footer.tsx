@@ -1,16 +1,22 @@
 import { Mail } from "lucide-react";
 import { config, siteConfig } from "@/config/site";
 import { Icons } from "@/components/atoms/Icons";
+import { Rss } from 'lucide-react';
+import Link from "next/link";
 
 export default function Footer() {
   return (
     <footer>
       <div className="mb-6 mt-10 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
-          <a target="_blank" rel="noreferrer" href="mailto:hello@example.com">
+          <a target="_blank" rel="noreferrer" href={`mailto:${siteConfig.links.email}`}>
             <span className="sr-only">Mail</span>
             <Mail className="size-6" />
           </a>
+          <Link href="/api/rss.xml">
+            <span className="sr-only">Rss</span>
+            <Rss className="size-6" />
+          </Link>
           <a target="_blank" rel="noreferrer" href={siteConfig.links.twitter}>
             <span className="sr-only">Twitter</span>
             <Icons.twitter className="size-6" />

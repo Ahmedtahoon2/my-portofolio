@@ -25,7 +25,6 @@ export function ShareBtns({
 }: ShareBtnsProps) {
   return (
     <div className="flex items-center">
-      <p className="my-0 mr-2">Share: </p>
       <FacebookShareButton
         url={url}
         quote={quote}
