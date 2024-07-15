@@ -12,12 +12,11 @@ export const useBlogPagination = (
   postsPerPage: number,
   currentPage: number
 ): PaginationResult => {
-  const totalPages = Math.ceil(posts.length / postsPerPage);
-
   const sortedPosts = sortPosts(posts, selectedOrder);
 
-  const startIndex = (currentPage - 1) * postsPerPage;
+  const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 
+  const startIndex = (currentPage - 1) * postsPerPage;
   const displayPosts = sortedPosts.slice(startIndex, startIndex + postsPerPage);
 
   return {

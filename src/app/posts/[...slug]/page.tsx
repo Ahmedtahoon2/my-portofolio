@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeftIcon, BookOpen } from "lucide-react";
+import { ArrowLeftIcon, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { posts } from "@site/content";
@@ -49,7 +49,6 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     keywords: post.tags.length > 0 ? post.tags.join(", ") : "",
-    authors: { name: siteConfig.author },
     alternates: {
       canonical: post.slug,
     },
@@ -129,7 +128,7 @@ export default async function PostPage({ params }: PostPageProps) {
               hashtags={convertToHashtag(post.tags, "#Ahmed_Tahoon")}
               blankTarget
             />
-            <p className="text-muted-foreground my-0"><BookOpen className="mr-1 inline" /> {post.readingTime.text}</p>
+            <p className="text-muted-foreground my-0"><Clock className="mr-1 inline" /> {post.readingTime.text}</p>
           </div>
         </section>
         <hr className="my-4" />

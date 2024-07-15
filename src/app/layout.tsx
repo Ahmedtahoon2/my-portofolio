@@ -59,12 +59,16 @@ export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
   metadataBase: new URL(config.url),
+  authors: { name: siteConfig.author },
   alternates: {
     canonical: config.url,
     types: {
       "application/rss+xml": `${config.url}/api/rss.xml`,
     },
   },
+  icons: [
+    { rel: "apple-touch-icon", url: "icons/apple-touch-icon.png" },
+  ],
 };
 
 export const viewport: Viewport = {

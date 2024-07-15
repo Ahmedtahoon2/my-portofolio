@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "JollyBlog",
+  name: "Ahmed portfolio",
   description: "Nextjs 14 blog using velite, tailwind and shadcn",
   author: "Ahmed Tahoon",
   links: {
@@ -15,9 +15,7 @@ export const siteConfig = {
 };
 
 const productionConfig = {
-  url:
-    process.env.NEXT_PUBLIC_APP_URL ||
-    "https://my-portofolio-roan-three.vercel.app",
+  url: process.env.NEXT_PUBLIC_APP_URL || "https://ahmed-tahoon.vercel.app",
 };
 
 const developmentConfig = {
