@@ -6,9 +6,9 @@ import {
   LinkedinShareButton,
   WhatsappShareButton,
 } from "next-share";
-import { Icons } from "./Icons";
+import { buttonVariants } from "@/components/ui/button";
+import { Icons } from "@/components/atoms/Icons";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "../ui/button";
 
 interface ShareBtnsProps {
   url: string;
@@ -34,7 +34,7 @@ export function ShareBtns({
         <div
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "hidden w-10 px-0 sm:inline-flex"
+            "inline-flex w-10 px-0"
           )}
         >
           <Icons.facebook className="size-[25px]" />
@@ -49,7 +49,7 @@ export function ShareBtns({
         <div
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "hidden w-10 px-0 sm:inline-flex"
+            "inline-flex w-10 px-0"
           )}
         >
           <Icons.twitter className="size-[25px]" />
@@ -59,7 +59,7 @@ export function ShareBtns({
         <div
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "hidden w-10 px-0 sm:inline-flex"
+            "inline-flex w-10 px-0"
           )}
         >
           <Icons.linkedin className="size-[25px]" />

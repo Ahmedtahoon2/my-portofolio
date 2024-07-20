@@ -58,27 +58,27 @@ export function sortTagsByCount(tags: Record<string, number>): string[] {
  * Retrieves posts that have a specific tag (case-insensitive).
  *
  * @param {Post[]} posts - The array of posts to search for the tag.
- * @param {string} tag - The tag to search for.
+ * @param {string[]} tags - The tags to search for.
  * @returns {Post[]} An array of posts that have the specified tag.
  *
  * @example
  * import { getPostsByTagSlug } from './tagsUtils';
  *
  * const posts = [
- *   { title: 'Post 1', tags: ['JavaScript', 'Node.js'], published: true },
- *   { title: 'Post 2', tags: ['TypeScript', 'Node.js'], published: true },
- *   { title: 'Post 3', tags: ['JavaScript'], published: false }
+ *   { title: 'Post 1', tags: ['JavaScript', 'Node.js'] },
+ *   { title: 'Post 2', tags: ['TypeScript', 'Node.js'] },
+ *   { title: 'Post 3', tags: ['JavaScript']}
  * ];
  *
- * const javascriptPosts = getPostsByTagSlug(posts, 'javascript');
+ * const javascriptPosts = getPostsByTagSlug(posts, ['javascript']);
  * console.log(javascriptPosts);
- * // Output: [ { title: 'Post 1', tags: ['JavaScript', 'Node.js'], published: true }, { title: 'Post 3', tags: ['JavaScript'], published: false } ]
+ * // Output: [ { title: 'Post 1', tags: ['JavaScript', 'Node.js'], published: true }, { title: 'Post 3', tags: ['JavaScript'] } ]
  */
-export function getPostsByTagSlug(posts: Post[], tag: string): Post[] {
-  const slugifiedTag = slug(tag);
+export function getPostsByTagSlug(posts: Post[], tags: string[]): Post[] {
+  const slugifiedTags = tags.map(tag => slug(tag));
 
   return posts.filter(post => {
     if (!post.tags) return false;
-    return post.tags.some(postTag => slug(postTag) === slugifiedTag);
+    return post.tags.some(postTag => slugifiedTags.includes(slug(postTag)));
   });
 }

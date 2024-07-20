@@ -7,5 +7,6 @@ export {
   remarkCustomHeadingId,
   type HProperties,
 } from "./remark-custom-heading-id";
+export { remarkEmbedderPreset } from "./remark-embedder"
 export { rehypeTocPlugin } from "./rehype-toc-plugin";
 export { rehypeCodeCustom } from "./rehype-code-custom";

@@ -7,7 +7,7 @@ import { blogConfig } from "@/config/blog";
 import { useBlogPagination } from "@/hooks/useBlogPagination";
 import QueryPagination from "@/components/atoms/QueryPagination";
 import { TagsSearch } from "@/components/atoms/TagsSearch";
-import { getAllTags, sortTagsByCount } from "@/lib/tagUtils";
+import { getAllTags, getPostsByTagSlug, sortTagsByCount } from "@/lib/tagUtils";
 import { SortOrder } from "@/lib/sortPosts";
 import {
   Select,
@@ -45,7 +45,7 @@ export default function Page({ searchParams }: BlogPageProps) {
 
   const filteredPosts = useMemo(() => {
     return selectedTags.length > 0
-      ? posts.filter(post => post.tags.some(tag => selectedTags.includes(tag)))
+      ? getPostsByTagSlug(posts, selectedTags)
       : posts;
   }, [selectedTags]);
 
@@ -57,7 +57,7 @@ export default function Page({ searchParams }: BlogPageProps) {
   );
 
   return (
-    <div className="container max-w-4xl py-6 lg:py-10">
+    <section className="container max-w-4xl py-6 lg:py-10">
       <div className="mb-4 flex flex-col gap-4">
         <h1 className="block text-4xl font-black lg:text-5xl">Posts</h1>
         <p className="text-muted-foreground text-xl">
@@ -102,7 +102,7 @@ export default function Page({ searchParams }: BlogPageProps) {
           displayPosts.map(post => {
             return (
               <li key={post.slug}>
-                <PostItem post={post} />
+                <PostItem post={post} selectedTags={selectedTags} />
               </li>
             );
           })
@@ -111,6 +111,6 @@ export default function Page({ searchParams }: BlogPageProps) {
         )}
       </ul>
       <QueryPagination className="mt-6" totalPages={totalPages} />
-    </div>
+    </section>
   );
 }

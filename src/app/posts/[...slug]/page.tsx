@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { ArrowLeftIcon, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import { Metadata } from "next/types";
 import { posts } from "@site/content";
 import { config, siteConfig } from "@/config/site";
 import { formatDate } from "@/lib/formatDate";
 import { convertToHashtag } from "@/lib/convertToHashtag";
 import { MDXContent } from "@/components/molecules/MdxComponent";
-import { Picture } from "@/components/atoms/postPicture";
+import { ShareBtns } from "@/components/molecules/ShareBtns";
+import { Picture } from "@/components/atoms/Picture";
 import { ScrollBtn } from "@/components/atoms/ScrollBtn";
-import { ShareBtns } from "@/components/atoms/ShareBtns";
 import { Tag } from "@/components/atoms/Tag";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -91,7 +91,7 @@ export default async function PostPage({ params }: PostPageProps) {
           href="/posts"
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "absolute left-[-200px] top-4 hidden no-underline lg:inline-flex"
+            "absolute left-[-200px] top-4 hidden no-underline 2xl:inline-flex"
           )}
         >
           <ArrowLeftIcon className="mr-2 size-4" />
@@ -114,7 +114,7 @@ export default async function PostPage({ params }: PostPageProps) {
             className="my-0 w-[90%]"
           />
           <div className="flex gap-2">
-            {post.tags?.map(tag => <Tag tag={tag} key={tag} />)}
+            {post.tags?.map(tag => <Tag path="posts" tag={tag} key={tag} />)}
           </div>
           {post.description ? (
             <p className="text-muted-foreground m-0 text-xl">

@@ -1,11 +1,13 @@
 import localFont from "next/font/local";
 import NextTopLoader from "nextjs-toploader";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
-import { cn } from "@/lib/utils";
 import { config, siteConfig } from "@/config/site";
 import { Providers } from "@/components/molecules/Providers";
 import Header from "@/components/molecules/Header";
 import Footer from "@/components/molecules/Footer";
+import { cn } from "@/lib/utils";
 import "@/styles/core.css";
 
 export default function RootLayout({
@@ -35,6 +37,8 @@ export default function RootLayout({
             <Footer />
           </div>
         </Providers>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
@@ -66,14 +70,12 @@ export const metadata: Metadata = {
       "application/rss+xml": `${config.url}/api/rss.xml`,
     },
   },
-  icons: [
-    { rel: "apple-touch-icon", url: "icons/apple-touch-icon.png" },
-  ],
+  icons: [{ rel: "apple-touch-icon", url: "icons/apple-touch-icon.png" }],
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: "(prefers-color-scheme: light)", color: "#f1f1f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#121010" },
   ],
 };
