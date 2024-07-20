@@ -16,7 +16,7 @@ export function MainNav() {
         href="/posts"
         className={cn(
           "hover:text-primary hidden text-base font-medium transition-colors sm:inline-block",
-          pathname === "/blog" ? "text-foreground" : "text-foreground/60"
+          pathname === "/posts" ? "text-foreground" : "text-foreground/60"
         )}
       >
         Posts

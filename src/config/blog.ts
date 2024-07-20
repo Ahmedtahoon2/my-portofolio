@@ -1,3 +1,3 @@
 export const blogConfig = {
-  POSTS_PER_PAGE: 5,
+  POSTS_PER_PAGE: 6,
 };

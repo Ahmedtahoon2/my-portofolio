@@ -13,12 +13,14 @@
   "cSpell.words": [
     "boder",
     "clsx",
+    "cmdk",
     "deflist",
     "Deflist",
     "dracula",
     "ecma",
     "esnext",
     "facebook",
+    "giscus",
     "hbsnow",
     "hongvanpc",
     "instagram",
@@ -54,5 +56,8 @@
     "youtube"
   ],
   "css.lint.unknownAtRules": "ignore",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

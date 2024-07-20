@@ -164,6 +164,14 @@ article.prose em {
   @apply italic;
 }
 
+article.prose .iframe-embed {
+  @apply my-4;
+}
+
+article.prose mark {
+  @apply bg-orange-300 px-1 mr-[2px];
+}
+
 /* Active tab trigger styles */
 .TabsTrigger[data-state="active"] {
   @apply border-b-[1px] border-solid border-blue-500 font-bold;

@@ -20,7 +20,7 @@ export default function Home() {
             text="front-end developer"
             className="text-2xl"
             colors={{
-              first: "rgb(255, 150, 86)",
+              first: "rgb(255, 120, 86)",
               second: "rgb(255, 195, 75)",
             }}
             sparklesCount={7}
@@ -31,7 +31,7 @@ export default function Home() {
             href="/posts"
             className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}
           >
-            View my blog
+            View my posts
           </Link>
           <Link
             href={siteConfig.links.github}

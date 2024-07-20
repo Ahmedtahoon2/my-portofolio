@@ -1,8 +1,10 @@
 import { defineConfig, defineCollection, s } from "velite";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
+import { remarkMark } from "remark-mark-highlight";
 import {
   remarkInternalLinkToJsx,
   remarkCustomHeadingId,
+  remarkEmbedderPreset,
   rehypeCodeCustom,
   rehypeTocPlugin,
   remarkImgToJsx,
@@ -11,7 +13,6 @@ import calcReadingTime from "@/lib/calcReadingTime";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeSectionize from "@hbsnow/rehype-sectionize";
-import rehypeEmbed from "@hongvanpc10/rehype-embed";
 import remarkDeflist from "remark-deflist";
 import rehypeSlug from "rehype-slug";
 import smartypants from "remark-smartypants";
@@ -60,12 +61,7 @@ export const projects = defineCollection({
       body: s.mdx(),
       image: s.image(),
       imageDark: s.image().optional(),
-      links: s.array(
-        s.object({
-          name: s.string(),
-          url: s.string().url(),
-        })
-      ),
+      published: s.boolean().default(true),
     })
     .transform(computedFields),
 });
@@ -96,21 +92,22 @@ export default defineConfig({
       ],
       [
         rehypeExternalLinks,
-        { target: "_blank", rel: ["nofollow", "noopener", "noreferrer"] },
+        { target: "_blank", rel: ["noopener", "noreferrer"] },
       ],
       rehypeAccessibleEmojis,
-      rehypeEmbed as any,
       rehypeSectionize,
       rehypeCodeCustom,
       rehypeTocPlugin,
     ],
     remarkPlugins: [
+      remarkEmbedderPreset,
       remarkInternalLinkToJsx,
       remarkCustomHeadingId,
       remarkImgToJsx,
       remarkDeflist,
       remarkBreaks,
       smartypants,
+      remarkMark as any,
     ],
   },
 });

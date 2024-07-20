@@ -1,22 +1,21 @@
 import Link from "next/link";
-import { slug } from "github-slugger";
 import { badgeVariants } from "@/components/ui/badge";
 
 interface TagProps {
+  path: string;
   tag: string;
   current?: boolean;
-  count?: number;
 }
-export function Tag({ tag, current, count }: TagProps) {
+export function Tag({ path, tag, current }: TagProps) {
   return (
     <Link
       className={badgeVariants({
         variant: current ? "default" : "secondary",
         className: "rounded-md no-underline",
       })}
-      href={`/tags/${slug(tag)}`}
+      href={`/${path}?tags=${tag}`}
     >
-      {tag} {count ? `(${count})` : null}
+      {tag}
     </Link>
   );
 }

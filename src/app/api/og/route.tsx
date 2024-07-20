@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
               <path d="M4 4a16 16 0 0 1 16 16" />
               <circle cx="5" cy="19" r="1" />
             </svg>
-            <p tw="ml-2 font-bold text-2xl">JollyBlog</p>
+            <p tw="ml-2 font-bold text-2xl">Blog</p>
           </div>
           <div tw="flex flex-col flex-1 py-10">
             <div tw="text-3xl uppercase font-bold tracking-tight pb-3">
