@@ -12,6 +12,7 @@ import Image from "./Image";
 import Pre from "./Pre";
 import Tabs from "./Tabs";
 import Blockquote from "./Blockquote";
+import VideoPlayer from "./VideoPlayer";
 
 export const components: MDXComponents = {
   Link,
@@ -19,6 +20,7 @@ export const components: MDXComponents = {
   Button,
   FileTree,
   Tabs,
+  VideoPlayer,
   Callout,
   pre: Pre,
   code: Code,

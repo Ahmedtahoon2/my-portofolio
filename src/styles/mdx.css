@@ -161,7 +161,7 @@ article.prose > p code {
 }
 
 article.prose em {
-  @apply italic;
+  @apply italic text-white font-semibold;
 }
 
 article.prose .iframe-embed {
@@ -170,6 +170,10 @@ article.prose .iframe-embed {
 
 article.prose mark {
   @apply bg-orange-300 px-1 mr-[2px];
+}
+
+.data-footnote-backref {
+  @apply no-underline;
 }
 
 /* Active tab trigger styles */

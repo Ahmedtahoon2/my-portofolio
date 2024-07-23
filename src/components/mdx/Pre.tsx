@@ -41,7 +41,7 @@ export default function Pre(props: ComponentProps<"pre">) {
               aria-label={copied ? "Copied to clipboard" : "Copy to clipboard"}
               className={cn(
                 "absolute right-0 top-0 m-2 cursor-pointer space-x-2 rounded-md border bg-gray-600/15 p-2 transition-opacity duration-300 focus:outline-none",
-                (copied || "opacity-0 group-hover:opacity-100"),
+                copied || "opacity-0 group-hover:opacity-100",
                 copied ? "border-green-400/80" : "border-transparent"
               )}
             >

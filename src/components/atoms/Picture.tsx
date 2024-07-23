@@ -12,7 +12,15 @@ type PictureProps = {
   className?: string;
 };
 
-export function Picture({ image, imageDark, quality, width, height, alt, className }: PictureProps) {
+export function Picture({
+  image,
+  imageDark,
+  quality,
+  width,
+  height,
+  alt,
+  className,
+}: PictureProps) {
   return (
     <div className="flex justify-start">
       <Image
@@ -26,17 +34,19 @@ export function Picture({ image, imageDark, quality, width, height, alt, classNa
         placeholder="blur"
         quality={quality || 100}
       />
-      {imageDark && <Image
-        src={imageDark.src}
-        alt={alt}
-        width={width || imageDark.width}
-        height={height || imageDark.height}
-        className={cn("hidden dark:block", className)}
-        priority
-        blurDataURL={imageDark.blurDataURL}
-        placeholder="blur"
-        quality={quality || 100}
-      />}
+      {imageDark && (
+        <Image
+          src={imageDark.src}
+          alt={alt}
+          width={width || imageDark.width}
+          height={height || imageDark.height}
+          className={cn("hidden dark:block", className)}
+          priority
+          blurDataURL={imageDark.blurDataURL}
+          placeholder="blur"
+          quality={quality || 100}
+        />
+      )}
     </div>
   );
 }

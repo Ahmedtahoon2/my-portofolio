@@ -1,18 +1,18 @@
 import { Post } from "@site/content";
-import { SortOrder, sortPosts } from "@/lib/sortPosts";
+import { SortOrder, sortItems } from "@/lib/sortItems";
 
 interface PaginationResult {
   totalPages: number;
   displayPosts: Post[];
 }
 
-export const useBlogPagination = (
+export const usePostsPagination = (
   posts: Post[],
   selectedOrder: SortOrder,
+  currentPage: number,
   postsPerPage: number,
-  currentPage: number
 ): PaginationResult => {
-  const sortedPosts = sortPosts(posts, selectedOrder);
+  const sortedPosts: Post[] = sortItems(posts, selectedOrder);
 
   const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 

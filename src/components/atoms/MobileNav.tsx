@@ -30,10 +30,13 @@ export function MobileNav() {
           <Logo className="mr-2 size-4" />
         </MobileLink>
         <div className="mt-3 flex flex-col gap-4">
-          <MobileLink onOpenChange={setOpen} href="/posts">
+          <MobileLink onOpenChange={setOpen} href="/posts" className="text-xl font-medium">
             Posts
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/about">
+          <MobileLink onOpenChange={setOpen} href="/projects" className="text-xl font-medium">
+            Projects
+          </MobileLink>
+          <MobileLink onOpenChange={setOpen} href="/about" className="text-xl font-medium">
             About
           </MobileLink>
           <div className="flex justify-center gap-2">
@@ -41,10 +44,10 @@ export function MobileNav() {
               <div
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "inline-flex w-10 px-0"
+                  "inline-flex size-12 px-0"
                 )}
               >
-                <Icons.gitHub className="size-4" />
+                <Icons.gitHub className="size-5" />
                 <span className="sr-only">GitHub</span>
               </div>
             </a>
@@ -52,10 +55,10 @@ export function MobileNav() {
               <div
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "inline-flex w-10 px-0"
+                  "inline-flex size-12 px-0"
                 )}
               >
-                <Icons.twitter className="size-4" />
+                <Icons.twitter className="size-5" />
                 <span className="sr-only">Twitter</span>
               </div>
             </a>

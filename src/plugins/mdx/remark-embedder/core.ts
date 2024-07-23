@@ -80,7 +80,7 @@ export const remarkEmbedder = ({
     throw new Error("Invalid cache object. Ensure it has get and set methods.");
   }
 
-  const transformersAndConfig: TransformerAndConfig[] = transformers.map((t) =>
+  const transformersAndConfig: TransformerAndConfig[] = transformers.map(t =>
     Array.isArray(t) ? { config: t[1], transformer: t[0] } : { transformer: t }
   );
 

@@ -1,5 +1,4 @@
 import { slug } from "github-slugger";
-import { Post } from "@site/content";
 
 /**
  * Calculates the count of each tag from an array of posts.
@@ -20,12 +19,12 @@ import { Post } from "@site/content";
  * console.log(tagsCount);
  * // Output: { 'javascript': 1, 'nodejs': 2, 'typescript': 1 }
  */
-export function getAllTags(posts: Post[]): Record<string, number> {
+export function getAllTags(items: any[]): Record<string, number> {
   const tags = new Map<string, number>();
 
-  posts.forEach(post => {
+  items.forEach(post => {
     if (post.published) {
-      post.tags?.forEach(tag => {
+      post.tags?.forEach((tag: string) => {
         tags.set(tag, (tags.get(tag) ?? 0) + 1);
       });
     }
@@ -55,14 +54,14 @@ export function sortTagsByCount(tags: Record<string, number>): string[] {
 }
 
 /**
- * Retrieves posts that have a specific tag (case-insensitive).
+ * Retrieves items that have a specific tag (case-insensitive).
  *
- * @param {Post[]} posts - The array of posts to search for the tag.
+ * @param {any[]} items - The array of items to search for the tag.
  * @param {string[]} tags - The tags to search for.
- * @returns {Post[]} An array of posts that have the specified tag.
+ * @returns {any[]} An array of items that have the specified tag.
  *
  * @example
- * import { getPostsByTagSlug } from './tagsUtils';
+ * import { sortItemsByTags } from './tagsUtils';
  *
  * const posts = [
  *   { title: 'Post 1', tags: ['JavaScript', 'Node.js'] },
@@ -70,15 +69,20 @@ export function sortTagsByCount(tags: Record<string, number>): string[] {
  *   { title: 'Post 3', tags: ['JavaScript']}
  * ];
  *
- * const javascriptPosts = getPostsByTagSlug(posts, ['javascript']);
+ * const javascriptPosts = sortItemsByTags(posts, ['javascript']);
  * console.log(javascriptPosts);
  * // Output: [ { title: 'Post 1', tags: ['JavaScript', 'Node.js'], published: true }, { title: 'Post 3', tags: ['JavaScript'] } ]
  */
-export function getPostsByTagSlug(posts: Post[], tags: string[]): Post[] {
+export function sortItemsByTags(items: any[], tags: string[]): any[] {
   const slugifiedTags = tags.map(tag => slug(tag));
 
-  return posts.filter(post => {
-    if (!post.tags) return false;
-    return post.tags.some(postTag => slugifiedTags.includes(slug(postTag)));
+  return items.filter(item => {
+    if (!item.tags) return false;
+
+    // Check if any of the item's tags match the slugified tags
+    return item.tags.some((itemTag: string) => {
+      const itemTagSlug = slug(itemTag);
+      return slugifiedTags.includes(itemTagSlug);
+    });
   });
 }

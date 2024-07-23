@@ -11,6 +11,7 @@
     "source.fixAll.eslint": "always"
   },
   "cSpell.words": [
+    "backref",
     "boder",
     "clsx",
     "cmdk",

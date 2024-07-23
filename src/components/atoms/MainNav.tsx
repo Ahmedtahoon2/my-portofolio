@@ -9,7 +9,11 @@ export function MainNav() {
   const pathname = usePathname();
   return (
     <nav className="flex items-center space-x-6 lg:space-x-8">
-      <Link href="/" className="flex items-center space-x-2 lg:ml-7">
+      <Link
+        href="/"
+        className="flex items-center space-x-2 lg:ml-7"
+        aria-label="logo"
+      >
         <Logo className="size-6" />
       </Link>
       <Link
@@ -20,6 +24,15 @@ export function MainNav() {
         )}
       >
         Posts
+      </Link>
+      <Link
+        href="/projects"
+        className={cn(
+          "hover:text-primary hidden text-base font-medium transition-colors sm:inline-block",
+          pathname === "/projects" ? "text-foreground" : "text-foreground/60"
+        )}
+      >
+        Projects
       </Link>
       <Link
         href="/about"

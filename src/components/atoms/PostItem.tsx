@@ -19,20 +19,19 @@ export default function PostItem({
 }) {
   const { slug, title, tags, description, date, image, imageDark } = post;
   return (
-    <article className="hover:border-primary flex flex-col overflow-hidden rounded-md border transition-all duration-100 ease-in-out">
+    <article className="group flex flex-col overflow-hidden rounded-md shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2">
       <Link href={"/" + slug} aria-label={title}>
-        <Picture
-          image={image}
-          imageDark={imageDark}
-          alt={title}
-        />
-        <Card className="rounded-md px-3">
-          <div>
-            <h2 className="my-3 line-clamp-2 text-2xl font-bold">{title}</h2>
-          </div>
+        <Picture image={image} imageDark={imageDark} alt={title} className="aspect-video" />
+        <Card className="rounded-t-none px-3">
+          <h2 className="my-3 line-clamp-2 text-2xl font-bold transition group-hover:text-orange-300">{title}</h2>
           <div className="flex gap-2">
             {tags?.map(tag => (
-              <Tag path="posts" tag={tag} key={tag} current={selectedTags.includes(tag)} />
+              <Tag
+                path="posts"
+                tag={tag}
+                key={tag}
+                current={selectedTags.includes(tag)}
+              />
             ))}
           </div>
           <p className="text-muted-foreground mt-3 line-clamp-2 max-w-none text-lg leading-normal">

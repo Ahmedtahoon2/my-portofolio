@@ -14,6 +14,9 @@ const config = {
   ],
   theme: {
     extend: {
+      colors: {
+        accentDark: "#ffdb4d",
+      },
       animation: {
         grid: "grid 15s linear infinite",
       },

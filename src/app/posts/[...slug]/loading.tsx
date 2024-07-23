@@ -14,5 +14,5 @@ export default async function Loading() {
         <div className="bg-secondary h-8 w-full animate-pulse rounded-lg"></div>
       </div>
     </article>
-  )
+  );
 }

@@ -95,7 +95,7 @@ export default async function PostPage({ params }: PostPageProps) {
           )}
         >
           <ArrowLeftIcon className="mr-2 size-4" />
-          See all blogs
+          See all posts
         </Link>
         <section className="mb-2 flex flex-col gap-4">
           <time
@@ -111,7 +111,7 @@ export default async function PostPage({ params }: PostPageProps) {
             image={post.image}
             imageDark={post.imageDark}
             alt={post.title}
-            className="my-0 w-[90%]"
+            className="my-0 aspect-video"
           />
           <div className="flex gap-2">
             {post.tags?.map(tag => <Tag path="posts" tag={tag} key={tag} />)}
@@ -128,7 +128,9 @@ export default async function PostPage({ params }: PostPageProps) {
               hashtags={convertToHashtag(post.tags, "#Ahmed_Tahoon")}
               blankTarget
             />
-            <p className="text-muted-foreground my-0"><Clock className="mr-1 inline" /> {post.readingTime.text}</p>
+            <p className="text-muted-foreground my-0">
+              <Clock className="mr-1 inline" /> {post.readingTime.text}
+            </p>
           </div>
         </section>
         <hr className="my-4" />
@@ -140,7 +142,7 @@ export default async function PostPage({ params }: PostPageProps) {
             className={cn(buttonVariants({ variant: "ghost" }))}
           >
             <ArrowLeftIcon className="mr-2 size-4" />
-            See all blogs
+            See all posts
           </Link>
         </div>
         <ScrollBtn />

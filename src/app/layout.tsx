@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   const { lang, dir } = siteConfig.geolocation;
   return (
-    <html lang={lang} dir={dir} suppressHydrationWarning={true}>
+    <html lang={lang} dir={dir} suppressHydrationWarning>
       <body className={cn(Inter.variable, Manrope.variable)}>
         <Providers>
           <div className="flex flex-col">
